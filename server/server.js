@@ -6,6 +6,14 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+//connect to mongo data base
+
+// MongoDB Connection
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('MongoDB Connected Successfully!'))
+  .catch(err => console.log('MongoDB Connection Error:', err));
 
 // Middleware
 app.use(cors());
@@ -30,6 +38,12 @@ app.get('/guidance', (req, res) => {
 app.get('/simulator', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/simulator.html'));
 });
+
+//adding api 
+// API Routes
+const conceptsRouter = require('./routes/concepts');
+app.use('/api/concepts', conceptsRouter);
+
 
 // API test route
 app.get('/api/test', (req, res) => {
