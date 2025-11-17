@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money - Financial Literacy App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+
+        .modules {
+            display: grid;
+            gap: 20px;
+        }
+
+        .module-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .module-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .module-description {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Money</h1>
+        <p class="subtitle">Your Interactive Financial Literacy Platform</p>
+        
+        <div class="modules">
+            <a href="/concepts" class="module-btn">
+                 Financial Concepts
+                <div class="module-description">Learn fundamental financial concepts</div>
+            </a>
+            
+            <a href="/guidance" class="module-btn">
+                 Financial Guidance
+                <div class="module-description">Get personalized financial advice</div>
+            </a>
+            
+            <a href="/simulator" class="module-btn">
+                📈 Stock Market Simulator
+                <div class="module-description">Practice investing risk-free</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Concepts - Money App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f9ff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .nav a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .concept-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .concept-title {
+            color: #1e3a8a;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .concept-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .concept-category {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1> Financial Concepts</h1>
+        <p>Learn the fundamentals of personal finance</p>
+    </div>
+
+    <div class="nav">
+        <a href="/">← Home</a>
+        <a href="/concepts">Financial Concepts</a>
+        <a href="/guidance">Financial Guidance</a>
+        <a href="/simulator">Stock Simulator</a>
+    </div>
+
+    <div class="container">
+        <div class="concepts-grid">
+            <div class="concept-card">
+                <div class="concept-title">Compound Interest</div>
+                <div class="concept-description">
+                    Compound interest is interest calculated on the initial principal and accumulated interest from previous periods. It's one of the most powerful concepts in finance, allowing your money to grow exponentially over time.
+                </div>
+                <span class="concept-category">Investing</span>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Emergency Fund</div>
+                <div class="concept-description">
+                    An emergency fund is money set aside to cover unexpected expenses or financial emergencies. Financial experts recommend saving 3-6 months of living expenses in an easily accessible account.
+                </div>
+                <span class="concept-category">Savings</span>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Diversification</div>
+                <div class="concept-description">
+                    Diversification is the practice of spreading investments across various financial instruments, industries, and categories to reduce risk. The principle is: don't put all your eggs in one basket.
+                </div>
+                <span class="concept-category">Investing</span>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Credit Score</div>
+                <div class="concept-description">
+                    A credit score is a numerical expression of your creditworthiness based on your credit history. It ranges from 300-850, with higher scores indicating better credit health and access to better loan terms.
+                </div>
+                <span class="concept-category">Credit</span>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Budget</div>
+                <div class="concept-description">
+                    A budget is a financial plan that helps you track income and expenses. The 50/30/20 rule suggests allocating 50% to needs, 30% to wants, and 20% to savings and debt repayment.
+                </div>
+                <span class="concept-category">Budgeting</span>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Inflation</div>
+                <div class="concept-description">
+                    Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power. Understanding inflation is crucial for making smart long-term financial decisions.
+                </div>
+                <span class="concept-category">Economics</span>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    // Fetch concepts from database
+    fetch('http://localhost:5000/api/concepts')
+        .then(response => response.json())
+        .then(concepts => {
+            const grid = document.querySelector('.concepts-grid');
+            grid.innerHTML = ''; // Clear existing concepts
+            
+            concepts.forEach(concept => {
+                const card = document.createElement('div');
+                card.className = 'concept-card';
+                card.innerHTML = `
+                    <div class="concept-title">${concept.title}</div>
+                    <div class="concept-description">${concept.description}</div>
+                    <span class="concept-category">${concept.category}</span>
+                `;
+                grid.appendChild(card);
+            });
+        })
+        .catch(err => console.error('Error fetching concepts:', err));
+</script>
+
+
+
+</body>
+</html>

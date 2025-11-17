@@ -1,12 +1,12 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-//connect to mongo data base
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -39,11 +39,16 @@ app.get('/simulator', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/simulator.html'));
 });
 
-//adding api 
 // API Routes
 const conceptsRouter = require('./routes/concepts');
 app.use('/api/concepts', conceptsRouter);
 
+const questionsRouter = require('./routes/questions');
+app.use('/api/questions', questionsRouter);
+
+//adding
+const portfolioRouter = require('./routes/portfolio');
+app.use('/api/portfolio', portfolioRouter);
 
 // API test route
 app.get('/api/test', (req, res) => {
@@ -55,4 +60,3 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Visit http://localhost:${PORT} to see your app!`);
 });
-

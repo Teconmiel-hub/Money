@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Simulator - Money App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f9ff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .portfolio-summary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .balance {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .trading-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stock-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stock-symbol {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .stock-price {
+            font-size: 24px;
+            color: #10b981;
+            margin: 10px 0;
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 5px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        .my-stocks {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: bold;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📈 Stock Market Simulator</h1>
+        <p>Practice investing with virtual money</p>
+    </div>
+
+    <div class="nav">
+        <a href="/">← Home</a>
+        <a href="/concepts">Financial Concepts</a>
+        <a href="/guidance">Financial Guidance</a>
+        <a href="/simulator">Stock Simulator</a>
+    </div>
+
+    <div class="container">
+        <div class="portfolio-summary">
+            <h3>Your Portfolio Value</h3>
+            <div class="balance" id="balance">$10,000.00</div>
+            <p>Available Cash</p>
+        </div>
+
+        <div class="trading-section">
+            <h2>Available Stocks</h2>
+            <div class="stocks-grid" id="stocksGrid"></div>
+        </div>
+
+        <div class="my-stocks">
+            <h2>My Holdings</h2>
+            <table id="holdings">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Shares</th>
+                        <th>Purchase Price</th>
+                        <th>Current Value</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'AAPL', name: 'Apple', price: 175.50 },
+            { symbol: 'GOOGL', name: 'Google', price: 142.30 },
+            { symbol: 'MSFT', name: 'Microsoft', price: 378.90 },
+            { symbol: 'TSLA', name: 'Tesla', price: 242.80 },
+            { symbol: 'AMZN', name: 'Amazon', price: 178.25 }
+        ];
+
+        let portfolio = null;
+
+        // Load portfolio
+        async function loadPortfolio() {
+            const response = await fetch('http://localhost:5000/api/portfolio');
+            portfolio = await response.json();
+            updateDisplay();
+        }
+
+        // Display stocks
+        function displayStocks() {
+            const grid = document.getElementById('stocksGrid');
+            grid.innerHTML = stocks.map(stock => `
+                <div class="stock-card" onclick="buyStock('${stock.symbol}', '${stock.name}', ${stock.price})">
+                    <div class="stock-symbol">${stock.symbol}</div>
+                    <div>${stock.name}</div>
+                    <div class="stock-price">$${stock.price.toFixed(2)}</div>
+                    <button>Buy</button>
+                </div>
+            `).join('');
+        }
+
+        // Buy stock
+        async function buyStock(symbol, name, price) {
+            const shares = prompt(`How many shares of ${name} do you want to buy at $${price}?`);
+            if (!shares || shares <= 0) return;
+
+            const response = await fetch('http://localhost:5000/api/portfolio/buy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ symbol, name, shares: parseInt(shares), price })
+            });
+
+            if (response.ok) {
+                alert(`Successfully bought ${shares} shares of ${symbol}!`);
+                loadPortfolio();
+            } else {
+                const error = await response.json();
+                alert(error.message);
+            }
+        }
+
+        // Sell stock
+        async function sellStock(symbol, maxShares) {
+            const stock = stocks.find(s => s.symbol === symbol);
+            const shares = prompt(`How many shares of ${symbol} do you want to sell? (Max: ${maxShares})`);
+            if (!shares || shares <= 0 || shares > maxShares) return;
+
+            const response = await fetch('http://localhost:5000/api/portfolio/sell', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ symbol, shares: parseInt(shares), price: stock.price })
+            });
+
+            if (response.ok) {
+                alert(`Successfully sold ${shares} shares of ${symbol}!`);
+                loadPortfolio();
+            } else {
+                const error = await response.json();
+                alert(error.message);
+            }
+        }
+
+        // Update display
+        function updateDisplay() {
+            document.getElementById('balance').textContent = `$${portfolio.balance.toFixed(2)}`;
+
+            const tbody = document.querySelector('#holdings tbody');
+            tbody.innerHTML = portfolio.stocks.map(stock => {
+                const currentStock = stocks.find(s => s.symbol === stock.symbol);
+                const currentValue = stock.shares * currentStock.price;
+                return `
+                    <tr>
+                        <td>${stock.symbol}</td>
+                        <td>${stock.shares}</td>
+                        <td>$${stock.purchasePrice.toFixed(2)}</td>
+                        <td>$${currentValue.toFixed(2)}</td>
+                        <td><button onclick="sellStock('${stock.symbol}', ${stock.shares})">Sell</button></td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (portfolio.stocks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No stocks yet. Buy some to get started!</td></tr>';
+            }
+        }
+
+        // Initialize
+        loadPortfolio();
+        displayStocks();
+    </script>
+</body>
+</html>

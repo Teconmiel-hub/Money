@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Guidance - Money App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f9ff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .nav {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .questionnaire-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .coming-soon {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1> Financial Guidance</h1>
+        <p>Get personalized advice for your financial goals</p>
+    </div>
+
+    <div class="nav">
+        <a href="/">← Home</a>
+        <a href="/concepts">Financial Concepts</a>
+        <a href="/guidance">Financial Guidance</a>
+        <a href="/simulator">Stock Simulator</a>
+    </div>
+
+    <div class="container">
+        <div class="questionnaire-box">
+            <h2>Personalized Financial Questionnaire</h2>
+            <p>Answer a series of questions to receive customized financial advice tailored to your situation and goals.</p>
+            
+            <div class="coming-soon">
+                Questionnaire Module - Coming Soon!
+                <br><br>
+                This module will guide you through questions about your financial situation and provide personalized recommendations.
+            </div>
+        </div>
+    </div>
+
+<script>
+    let questions = [];
+    let currentQuestion = 0;
+    let answers = [];
+
+    // Fetch questions from database
+    fetch('http://localhost:5000/api/questions')
+        .then(response => response.json())
+        .then(data => {
+            questions = data;
+            displayQuestion();
+        })
+        .catch(err => console.error('Error:', err));
+
+    function displayQuestion() {
+        const box = document.querySelector('.questionnaire-box');
+        
+        if (currentQuestion >= questions.length) {
+            showResults();
+            return;
+        }
+
+        const q = questions[currentQuestion];
+        box.innerHTML = `
+            <h2>Question ${currentQuestion + 1} of ${questions.length}</h2>
+            <p style="font-size: 20px; margin: 30px 0;">${q.questionText}</p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <button onclick="answer('yes')" style="padding: 15px 40px; font-size: 18px; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer;">Yes</button>
+                <button onclick="answer('no')" style="padding: 15px 40px; font-size: 18px; background: #ef4444; color: white; border: none; border-radius: 10px; cursor: pointer;">No</button>
+            </div>
+        `;
+    }
+
+    function answer(response) {
+        answers.push({
+            question: questions[currentQuestion].questionText,
+            answer: response,
+            category: questions[currentQuestion].category
+        });
+        currentQuestion++;
+        displayQuestion();
+    }
+
+    function showResults() {
+        const box = document.querySelector('.questionnaire-box');
+        box.innerHTML = `
+            <h2>Your Financial Advice</h2>
+            <div style="background: #dbeafe; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <p>Based on your answers, here are some recommendations:</p>
+                <ul style="text-align: left; margin-top: 15px; line-height: 2;">
+                    ${generateAdvice()}
+                </ul>
+            </div>
+            <button onclick="location.reload()" style="margin-top: 20px; padding: 15px 30px; background: #3b82f6; color: white; border: none; border-radius: 10px; cursor: pointer;">Start Over</button>
+        `;
+    }
+
+    function generateAdvice() {
+        let advice = [];
+        
+        answers.forEach(a => {
+            if (a.category === 'Savings' && a.answer === 'no') {
+                advice.push('<li>Build an emergency fund - start with $1000, then work towards 3-6 months of expenses</li>');
+            }
+            if (a.category === 'Debt' && a.answer === 'yes') {
+                advice.push('<li>Focus on paying off high-interest debt first using the avalanche or snowball method</li>');
+            }
+            if (a.category === 'Investing' && a.answer === 'yes') {
+                advice.push('<li>Consider opening a retirement account (IRA or 401k) to start investing for your future</li>');
+            }
+            if (a.category === 'Income' && a.answer === 'no') {
+                advice.push('<li>Focus on building stable income streams before major financial commitments</li>');
+            }
+        });
+
+        if (advice.length === 0) {
+            advice.push('<li>You are on a great financial track! Keep learning and growing your wealth.</li>');
+        }
+
+        return advice.join('');
+    }
+</script>
+
+
+
+
+
+
+</body>
+
+</html>
