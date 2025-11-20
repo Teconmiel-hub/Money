@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Portfolio = require('../models/Portfolio');
 
-// GET portfolio
+// GET portfolio - now uses username from request
 router.get('/', async (req, res) => {
   try {
-    let portfolio = await Portfolio.findOne({ userId: 'default-user' });
+    const username = req.query.username || 'guest';
+    let portfolio = await Portfolio.findOne({ userId: username });
     
     // If no portfolio exists, create one
     if (!portfolio) {
-      portfolio = new Portfolio({ userId: 'default-user', balance: 10000 });
+      portfolio = new Portfolio({ userId: username, balance: 10000 });
       await portfolio.save();
     }
     
@@ -22,10 +23,15 @@ router.get('/', async (req, res) => {
 // POST buy stock
 router.post('/buy', async (req, res) => {
   try {
-    const { symbol, name, shares, price } = req.body;
+    const { symbol, name, shares, price, username } = req.body;
+    const userId = username || 'guest';
     const totalCost = shares * price;
     
-    let portfolio = await Portfolio.findOne({ userId: 'default-user' });
+    let portfolio = await Portfolio.findOne({ userId });
+    
+    if (!portfolio) {
+      portfolio = new Portfolio({ userId, balance: 10000 });
+    }
     
     if (portfolio.balance < totalCost) {
       return res.status(400).json({ message: 'Insufficient funds' });
@@ -45,10 +51,15 @@ router.post('/buy', async (req, res) => {
 // POST sell stock
 router.post('/sell', async (req, res) => {
   try {
-    const { symbol, shares, price } = req.body;
+    const { symbol, shares, price, username } = req.body;
+    const userId = username || 'guest';
     const totalValue = shares * price;
     
-    let portfolio = await Portfolio.findOne({ userId: 'default-user' });
+    let portfolio = await Portfolio.findOne({ userId });
+    
+    if (!portfolio) {
+      return res.status(400).json({ message: 'Portfolio not found' });
+    }
     
     // Find the stock
     const stockIndex = portfolio.stocks.findIndex(s => s.symbol === symbol);

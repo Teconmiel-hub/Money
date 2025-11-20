@@ -37,6 +37,11 @@ app.get('/guidance', (req, res) => {
 
 app.get('/simulator', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/simulator.html'));
+});5
+
+//login
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/login.html'));
 });
 
 // API Routes
@@ -49,6 +54,11 @@ app.use('/api/questions', questionsRouter);
 //adding
 const portfolioRouter = require('./routes/portfolio');
 app.use('/api/portfolio', portfolioRouter);
+
+//auth
+const authRouter = require('./routes/auth');
+app.use('/api/auth', authRouter);
+
 
 // API test route
 app.get('/api/test', (req, res) => {
