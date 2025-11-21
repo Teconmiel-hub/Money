@@ -3,96 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money - Financial Literacy App</title>
+    <title>Money - Financial Education Platform</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background: white;
-            padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 800px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #1e3a8a;
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .subtitle {
-            color: #64748b;
-            font-size: 18px;
-            margin-bottom: 50px;
-        }
-
-        .modules {
-            display: grid;
-            gap: 20px;
-        }
-
-        .module-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 30px;
-            border: none;
-            border-radius: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
+        /* Icon styling */
+        .module-icon img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
             display: block;
         }
-
-        .module-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        
+        .module-icon-text {
+            width: 90px;
+            height: 90px;
+            border-radius: 24px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-
-        .module-description {
-            font-size: 14px;
-            margin-top: 10px;
-            opacity: 0.9;
+        
+        .module-card:nth-child(1) .module-icon-text {
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+        }
+        
+        .module-card:nth-child(2) .module-icon-text {
+            background: linear-gradient(135deg, #2d4a6e 0%, #4a7bb8 100%);
+        }
+        
+        .module-card:nth-child(3) .module-icon-text {
+            background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1> Money</h1>
-        <p class="subtitle">Your Interactive Financial Literacy Platform</p>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">Money</a>
+            <div class="nav-links">
+                <a href="concepts.html" class="nav-link">Concepts</a>
+                <a href="guidance.html" class="nav-link">Guidance</a>
+                <a href="simulator.html" class="nav-link">Simulator</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar" id="userAvatar">G</div>
+                <span class="user-name" id="userName">Guest</span>
+            </div>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Homepage Content -->
+    <div class="homepage-container">
+        <h1 class="homepage-title">Welcome to Money</h1>
+        <p class="homepage-subtitle">Your comprehensive financial education platform. Master concepts, get personalized guidance, and practice with our stock market simulator.</p>
         
-        <div class="modules">
-            <a href="/concepts" class="module-btn">
-                 Financial Concepts
-                <div class="module-description">Learn fundamental financial concepts</div>
-            </a>
+        <div class="modules-grid">
+            <!-- Module 1: Financial Concepts -->
+            <div class="module-card" onclick="location.href='concepts.html'">
+                <div class="module-icon">
+                    <img src="./logo-book.png" alt="Financial Concepts Icon" 
+                         onerror="this.style.display='none'; this.parentElement.querySelector('.module-icon-text').style.display='flex';">
+                    <div class="module-icon-text">📚</div>
+                </div>
+                <div class="module-content">
+                    <div class="module-title">Financial Concepts</div>
+                    <div class="module-description">
+                        Learn essential financial concepts explained in clear, accessible terms with real-world examples and practical applications.
+                    </div>
+                </div>
+            </div>
             
-            <a href="/guidance" class="module-btn">
-                 Financial Guidance
-                <div class="module-description">Get personalized financial advice</div>
-            </a>
+            <!-- Module 2: Financial Guidance -->
+            <div class="module-card" onclick="location.href='guidance.html'">
+                <div class="module-icon">
+                    <img src="./logo-graduation.png" alt="Financial Guidance Icon"
+                         onerror="this.style.display='none'; this.parentElement.querySelector('.module-icon-text').style.display='flex';">
+                    <div class="module-icon-text">🎓</div>
+                </div>
+                <div class="module-content">
+                    <div class="module-title">Financial Guidance</div>
+                    <div class="module-description">
+                        Get personalized financial advice through our intelligent questionnaire system tailored to your goals and situation.
+                    </div>
+                </div>
+            </div>
             
-            <a href="/simulator" class="module-btn">
-                📈 Stock Market Simulator
-                <div class="module-description">Practice investing risk-free</div>
-            </a>
+            <!-- Module 3: Stock Market Simulator -->
+            <div class="module-card" onclick="location.href='simulator.html'">
+                <div class="module-icon">
+                    <img src="./logo-growth.png" alt="Stock Market Simulator Icon"
+                         onerror="this.style.display='none'; this.parentElement.querySelector('.module-icon-text').style.display='flex';">
+                    <div class="module-icon-text">📈</div>
+                </div>
+                <div class="module-content">
+                    <div class="module-title">Stock Market Simulator</div>
+                    <div class="module-description">
+                        Practice trading in a risk-free environment with virtual money and real market scenarios to build confidence.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Money App. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load user info on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName') || 'Guest';
+            const isGuest = localStorage.getItem('isGuest') === 'true';
+            
+            // Update user display
+            document.getElementById('userName').textContent = userName;
+            
+            // Update avatar with initials
+            const avatar = document.getElementById('userAvatar');
+            if (isGuest) {
+                avatar.textContent = 'G';
+            } else {
+                // Get first two letters of name/email
+                const initials = userName.substring(0, 2).toUpperCase();
+                avatar.textContent = initials;
+            }
+        });
+        
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear user data
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('isGuest');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                
+                // Redirect to login
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
 </body>
 </html>

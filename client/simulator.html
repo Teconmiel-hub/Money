@@ -3,289 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Simulator - Money App</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f9ff;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .nav {
-            background: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav a {
-            color: #3b82f6;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .portfolio-summary {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .balance {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .trading-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .stocks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .stock-card {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .stock-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .stock-symbol {
-            font-size: 20px;
-            font-weight: bold;
-            color: #1e40af;
-        }
-
-        .stock-price {
-            font-size: 24px;
-            color: #10b981;
-            margin: 10px 0;
-        }
-
-        input, button {
-            padding: 12px;
-            margin: 5px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-        }
-
-        button {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #2563eb;
-        }
-
-        .my-stocks {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        th {
-            background: #f8fafc;
-            font-weight: bold;
-            color: #1e40af;
-        }
-    </style>
+    <title>Stock Market Simulator - Money</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1>📈 Stock Market Simulator</h1>
-        <p>Practice investing with virtual money</p>
-    </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">Money</a>
+            <div class="nav-links">
+                <a href="concepts.html" class="nav-link">Concepts</a>
+                <a href="guidance.html" class="nav-link">Guidance</a>
+                <a href="simulator.html" class="nav-link">Simulator</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <span class="user-name">John Doe</span>
+            </div>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
 
-    <div class="nav">
-        <a href="/">← Home</a>
-        <a href="/concepts">Financial Concepts</a>
-        <a href="/guidance">Financial Guidance</a>
-        <a href="/simulator">Stock Simulator</a>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <h1>Stock Market Simulator</h1>
+        <p>Practice trading with virtual money in a risk-free environment</p>
+    </header>
 
+    <!-- Content -->
     <div class="container">
-        <div class="portfolio-summary">
-            <h3>Your Portfolio Value</h3>
-            <div class="balance" id="balance">$10,000.00</div>
-            <p>Available Cash</p>
+        <!-- Dashboard -->
+        <div class="simulator-dashboard">
+            <div class="dashboard-card">
+                <p class="dashboard-label">Portfolio Value</p>
+                <p class="dashboard-value" id="portfolioValue">$10,000.00</p>
+            </div>
+            <div class="dashboard-card">
+                <p class="dashboard-label">Cash Available</p>
+                <p class="dashboard-value" id="cashAvailable">$10,000.00</p>
+            </div>
+            <div class="dashboard-card">
+                <p class="dashboard-label">Total Gain/Loss</p>
+                <p class="dashboard-value positive" id="totalGainLoss">$0.00</p>
+            </div>
+            <div class="dashboard-card">
+                <p class="dashboard-label">Return %</p>
+                <p class="dashboard-value positive" id="returnPercent">0.00%</p>
+            </div>
         </div>
 
-        <div class="trading-section">
-            <h2>Available Stocks</h2>
-            <div class="stocks-grid" id="stocksGrid"></div>
-        </div>
-
-        <div class="my-stocks">
-            <h2>My Holdings</h2>
-            <table id="holdings">
+        <!-- Portfolio Holdings -->
+        <div class="portfolio-section">
+            <h2 class="section-title">Your Holdings</h2>
+            <table class="holdings-table">
                 <thead>
                     <tr>
                         <th>Symbol</th>
                         <th>Shares</th>
-                        <th>Purchase Price</th>
-                        <th>Current Value</th>
-                        <th>Action</th>
+                        <th>Avg Cost</th>
+                        <th>Current Price</th>
+                        <th>Total Value</th>
+                        <th>Gain/Loss</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="holdingsTableBody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-500);">
+                            No holdings yet. Execute your first trade below to get started!
+                        </td>
+                    </tr>
+                </tbody>
             </table>
+        </div>
+
+        <!-- Trade Section -->
+        <div class="trade-section">
+            <h2 class="section-title">Execute Trade</h2>
+            
+            <!-- Alert Messages -->
+            <div class="alert alert-info" id="infoAlert" style="display: none;"></div>
+            <div class="alert alert-success" id="successAlert" style="display: none;"></div>
+            <div class="alert alert-error" id="errorAlert" style="display: none;"></div>
+            
+            <div class="trade-form">
+                <div class="form-group">
+                    <label class="form-label">Stock Symbol</label>
+                    <input type="text" class="form-input" id="stockSymbol" placeholder="e.g., AAPL, GOOGL, MSFT" style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Shares</label>
+                    <input type="number" class="form-input" id="numShares" placeholder="Enter quantity" min="1">
+                </div>
+            </div>
+            
+            <div class="trade-buttons">
+                <button class="btn btn-success" onclick="executeTrade('buy')">Buy Stock</button>
+                <button class="btn btn-danger" onclick="executeTrade('sell')">Sell Stock</button>
+            </div>
+            
+            <div style="margin-top: 24px; padding: 20px; background: var(--accent-lighter); border-radius: 12px;">
+                <h4 style="color: var(--primary-navy); margin-bottom: 12px;">Stock Price Information</h4>
+                <p id="stockPriceInfo" style="color: var(--gray-700); font-size: 14px;">
+                    Enter a stock symbol to see current price information.
+                </p>
+            </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Money App. All rights reserved.</p>
+    </footer>
+
     <script>
-        const stocks = [
-            { symbol: 'AAPL', name: 'Apple', price: 175.50 },
-            { symbol: 'GOOGL', name: 'Google', price: 142.30 },
-            { symbol: 'MSFT', name: 'Microsoft', price: 378.90 },
-            { symbol: 'TSLA', name: 'Tesla', price: 242.80 },
-            { symbol: 'AMZN', name: 'Amazon', price: 178.25 }
-        ];
+        // Portfolio state
+        let cash = 10000;
+        let holdings = {};
+        
+        // Mock stock prices (in a real app, this would come from an API)
+        const stockPrices = {
+            'AAPL': 175.50,
+            'GOOGL': 135.80,
+            'MSFT': 380.25,
+            'AMZN': 145.90,
+            'TSLA': 242.15,
+            'META': 355.60,
+            'NVDA': 495.30,
+            'JPM': 155.70,
+            'V': 260.85,
+            'WMT': 165.40
+        };
 
-        let portfolio = null;
-
-        // Load portfolio
-        async function loadPortfolio() {
-            const response = await fetch('http://localhost:5000/api/portfolio');
-            portfolio = await response.json();
-            updateDisplay();
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         }
 
-        // Display stocks
-        function displayStocks() {
-            const grid = document.getElementById('stocksGrid');
-            grid.innerHTML = stocks.map(stock => `
-                <div class="stock-card" onclick="buyStock('${stock.symbol}', '${stock.name}', ${stock.price})">
-                    <div class="stock-symbol">${stock.symbol}</div>
-                    <div>${stock.name}</div>
-                    <div class="stock-price">$${stock.price.toFixed(2)}</div>
-                    <button>Buy</button>
-                </div>
-            `).join('');
+        function showAlert(type, message) {
+            // Hide all alerts first
+            document.getElementById('infoAlert').style.display = 'none';
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+
+            // Show the appropriate alert
+            const alertId = type + 'Alert';
+            const alertElement = document.getElementById(alertId);
+            alertElement.textContent = message;
+            alertElement.style.display = 'block';
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                alertElement.style.display = 'none';
+            }, 5000);
         }
 
-        // Buy stock
-        async function buyStock(symbol, name, price) {
-            const shares = prompt(`How many shares of ${name} do you want to buy at $${price}?`);
-            if (!shares || shares <= 0) return;
+        function updateDashboard() {
+            // Calculate portfolio value
+            let stockValue = 0;
+            for (let symbol in holdings) {
+                stockValue += holdings[symbol].shares * stockPrices[symbol];
+            }
+            
+            const portfolioValue = cash + stockValue;
+            const gainLoss = portfolioValue - 10000;
+            const returnPercent = ((gainLoss / 10000) * 100).toFixed(2);
 
-            const response = await fetch('http://localhost:5000/api/portfolio/buy', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ symbol, name, shares: parseInt(shares), price })
-            });
+            // Update dashboard
+            document.getElementById('portfolioValue').textContent = formatCurrency(portfolioValue);
+            document.getElementById('cashAvailable').textContent = formatCurrency(cash);
+            document.getElementById('totalGainLoss').textContent = formatCurrency(gainLoss);
+            document.getElementById('returnPercent').textContent = returnPercent + '%';
 
-            if (response.ok) {
-                alert(`Successfully bought ${shares} shares of ${symbol}!`);
-                loadPortfolio();
+            // Update gain/loss styling
+            const gainLossElement = document.getElementById('totalGainLoss');
+            const returnElement = document.getElementById('returnPercent');
+            
+            if (gainLoss >= 0) {
+                gainLossElement.classList.remove('negative');
+                gainLossElement.classList.add('positive');
+                returnElement.classList.remove('negative');
+                returnElement.classList.add('positive');
             } else {
-                const error = await response.json();
-                alert(error.message);
+                gainLossElement.classList.remove('positive');
+                gainLossElement.classList.add('negative');
+                returnElement.classList.remove('positive');
+                returnElement.classList.add('negative');
             }
         }
 
-        // Sell stock
-        async function sellStock(symbol, maxShares) {
-            const stock = stocks.find(s => s.symbol === symbol);
-            const shares = prompt(`How many shares of ${symbol} do you want to sell? (Max: ${maxShares})`);
-            if (!shares || shares <= 0 || shares > maxShares) return;
+        function updateHoldingsTable() {
+            const tbody = document.getElementById('holdingsTableBody');
+            tbody.innerHTML = '';
 
-            const response = await fetch('http://localhost:5000/api/portfolio/sell', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ symbol, shares: parseInt(shares), price: stock.price })
-            });
-
-            if (response.ok) {
-                alert(`Successfully sold ${shares} shares of ${symbol}!`);
-                loadPortfolio();
-            } else {
-                const error = await response.json();
-                alert(error.message);
-            }
-        }
-
-        // Update display
-        function updateDisplay() {
-            document.getElementById('balance').textContent = `$${portfolio.balance.toFixed(2)}`;
-
-            const tbody = document.querySelector('#holdings tbody');
-            tbody.innerHTML = portfolio.stocks.map(stock => {
-                const currentStock = stocks.find(s => s.symbol === stock.symbol);
-                const currentValue = stock.shares * currentStock.price;
-                return `
+            if (Object.keys(holdings).length === 0) {
+                tbody.innerHTML = `
                     <tr>
-                        <td>${stock.symbol}</td>
-                        <td>${stock.shares}</td>
-                        <td>$${stock.purchasePrice.toFixed(2)}</td>
-                        <td>$${currentValue.toFixed(2)}</td>
-                        <td><button onclick="sellStock('${stock.symbol}', ${stock.shares})">Sell</button></td>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray-500);">
+                            No holdings yet. Execute your first trade to get started!
+                        </td>
                     </tr>
                 `;
-            }).join('');
+                return;
+            }
 
-            if (portfolio.stocks.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No stocks yet. Buy some to get started!</td></tr>';
+            for (let symbol in holdings) {
+                const holding = holdings[symbol];
+                const currentPrice = stockPrices[symbol];
+                const totalValue = holding.shares * currentPrice;
+                const gainLoss = totalValue - (holding.shares * holding.avgCost);
+                const gainLossClass = gainLoss >= 0 ? 'positive' : 'negative';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="stock-symbol">${symbol}</span></td>
+                    <td>${holding.shares}</td>
+                    <td>${formatCurrency(holding.avgCost)}</td>
+                    <td><span class="stock-price">${formatCurrency(currentPrice)}</span></td>
+                    <td>${formatCurrency(totalValue)}</td>
+                    <td class="${gainLossClass}">${gainLoss >= 0 ? '+' : ''}${formatCurrency(gainLoss)}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        function executeTrade(action) {
+            const symbol = document.getElementById('stockSymbol').value.toUpperCase().trim();
+            const shares = parseInt(document.getElementById('numShares').value);
+
+            // Validation
+            if (!symbol) {
+                showAlert('error', 'Please enter a stock symbol.');
+                return;
+            }
+
+            if (!stockPrices[symbol]) {
+                showAlert('error', `Stock symbol "${symbol}" not found. Available symbols: ${Object.keys(stockPrices).join(', ')}`);
+                return;
+            }
+
+            if (!shares || shares <= 0) {
+                showAlert('error', 'Please enter a valid number of shares.');
+                return;
+            }
+
+            const price = stockPrices[symbol];
+            const totalCost = shares * price;
+
+            if (action === 'buy') {
+                // Check if enough cash
+                if (totalCost > cash) {
+                    showAlert('error', `Insufficient funds. You need ${formatCurrency(totalCost)} but only have ${formatCurrency(cash)}.`);
+                    return;
+                }
+
+                // Execute buy
+                cash -= totalCost;
+
+                if (holdings[symbol]) {
+                    // Update existing holding
+                    const totalShares = holdings[symbol].shares + shares;
+                    const totalCostBasis = (holdings[symbol].shares * holdings[symbol].avgCost) + totalCost;
+                    holdings[symbol].avgCost = totalCostBasis / totalShares;
+                    holdings[symbol].shares = totalShares;
+                } else {
+                    // Create new holding
+                    holdings[symbol] = {
+                        shares: shares,
+                        avgCost: price
+                    };
+                }
+
+                showAlert('success', `Successfully bought ${shares} shares of ${symbol} at ${formatCurrency(price)} per share.`);
+
+            } else if (action === 'sell') {
+                // Check if holding exists and has enough shares
+                if (!holdings[symbol]) {
+                    showAlert('error', `You don't own any shares of ${symbol}.`);
+                    return;
+                }
+
+                if (holdings[symbol].shares < shares) {
+                    showAlert('error', `You only own ${holdings[symbol].shares} shares of ${symbol}.`);
+                    return;
+                }
+
+                // Execute sell
+                cash += totalCost;
+                holdings[symbol].shares -= shares;
+
+                // Remove holding if all shares sold
+                if (holdings[symbol].shares === 0) {
+                    delete holdings[symbol];
+                }
+
+                showAlert('success', `Successfully sold ${shares} shares of ${symbol} at ${formatCurrency(price)} per share.`);
+            }
+
+            // Update display
+            updateDashboard();
+            updateHoldingsTable();
+
+            // Clear form
+            document.getElementById('stockSymbol').value = '';
+            document.getElementById('numShares').value = '';
+            document.getElementById('stockPriceInfo').innerHTML = 'Enter a stock symbol to see current price information.';
+        }
+
+        // Stock symbol lookup
+        document.getElementById('stockSymbol').addEventListener('input', function() {
+            const symbol = this.value.toUpperCase().trim();
+            const infoElement = document.getElementById('stockPriceInfo');
+
+            if (symbol && stockPrices[symbol]) {
+                const price = stockPrices[symbol];
+                infoElement.innerHTML = `
+                    <strong>${symbol}</strong>: Current price is ${formatCurrency(price)} per share.<br>
+                    <span style="color: var(--gray-600); font-size: 13px;">This is simulated data for educational purposes.</span>
+                `;
+            } else if (symbol) {
+                infoElement.innerHTML = `
+                    Stock symbol "${symbol}" not found.<br>
+                    <span style="color: var(--gray-600); font-size: 13px;">Available symbols: ${Object.keys(stockPrices).join(', ')}</span>
+                `;
+            } else {
+                infoElement.innerHTML = 'Enter a stock symbol to see current price information.';
+            }
+        });
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout? Your portfolio progress will be lost.')) {
+                window.location.href = 'login.html';
             }
         }
 
         // Initialize
-        loadPortfolio();
-        displayStocks();
+        updateDashboard();
+        updateHoldingsTable();
     </script>
 </body>
 </html>

@@ -3,181 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Concepts - Money App</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f9ff;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .nav {
-            background: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav a {
-            color: #3b82f6;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: bold;
-        }
-
-        .nav a:hover {
-            color: #2563eb;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .concepts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }
-
-        .concept-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .concept-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .concept-title {
-            color: #1e3a8a;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .concept-description {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        .concept-category {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-    </style>
+    <title>Financial Concepts - Money</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1> Financial Concepts</h1>
-        <p>Learn the fundamentals of personal finance</p>
-    </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">Money</a>
+            <div class="nav-links">
+                <a href="concepts.html" class="nav-link">Concepts</a>
+                <a href="guidance.html" class="nav-link">Guidance</a>
+                <a href="simulator.html" class="nav-link">Simulator</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <span class="user-name">John Doe</span>
+            </div>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
 
-    <div class="nav">
-        <a href="/">← Home</a>
-        <a href="/concepts">Financial Concepts</a>
-        <a href="/guidance">Financial Guidance</a>
-        <a href="/simulator">Stock Simulator</a>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <h1>Financial Concepts</h1>
+        <p>Master the fundamentals of finance with our comprehensive concept library</p>
+    </header>
 
+    <!-- Content -->
     <div class="container">
         <div class="concepts-grid">
-            <div class="concept-card">
-                <div class="concept-title">Compound Interest</div>
-                <div class="concept-description">
-                    Compound interest is interest calculated on the initial principal and accumulated interest from previous periods. It's one of the most powerful concepts in finance, allowing your money to grow exponentially over time.
-                </div>
-                <span class="concept-category">Investing</span>
+            <div class="concept-item">
+                <h3 class="concept-title">Time Value of Money</h3>
+                <p class="concept-description">
+                    Money available today is worth more than the same amount in the future due to its earning potential. 
+                    Understanding this principle is crucial for making informed investment decisions and evaluating long-term financial opportunities.
+                </p>
+                <span class="concept-category">Investment Basics</span>
+            </div>
+            
+            <div class="concept-item">
+                <h3 class="concept-title">Compound Interest</h3>
+                <p class="concept-description">
+                    Interest calculated on the initial principal and accumulated interest from previous periods. 
+                    This powerful concept can significantly grow your wealth over time through the exponential effect of earning returns on your returns.
+                </p>
+                <span class="concept-category">Savings & Growth</span>
+            </div>
+            
+            <div class="concept-item">
+                <h3 class="concept-title">Diversification</h3>
+                <p class="concept-description">
+                    Spreading investments across various financial instruments, industries, and asset classes to reduce risk. 
+                    A well-diversified portfolio can protect against significant losses while maintaining growth potential.
+                </p>
+                <span class="concept-category">Risk Management</span>
+            </div>
+            
+            <div class="concept-item">
+                <h3 class="concept-title">Risk vs Return</h3>
+                <p class="concept-description">
+                    The principle that potential return rises with an increase in risk. 
+                    Understanding this fundamental relationship helps in making balanced investment decisions aligned with your financial goals and risk tolerance.
+                </p>
+                <span class="concept-category">Investment Strategy</span>
             </div>
 
-            <div class="concept-card">
-                <div class="concept-title">Emergency Fund</div>
-                <div class="concept-description">
-                    An emergency fund is money set aside to cover unexpected expenses or financial emergencies. Financial experts recommend saving 3-6 months of living expenses in an easily accessible account.
-                </div>
-                <span class="concept-category">Savings</span>
+            <div class="concept-item">
+                <h3 class="concept-title">Asset Allocation</h3>
+                <p class="concept-description">
+                    The process of dividing investments among different asset categories such as stocks, bonds, and cash. 
+                    Proper asset allocation is a key determinant of investment returns and risk management over time.
+                </p>
+                <span class="concept-category">Portfolio Management</span>
             </div>
 
-            <div class="concept-card">
-                <div class="concept-title">Diversification</div>
-                <div class="concept-description">
-                    Diversification is the practice of spreading investments across various financial instruments, industries, and categories to reduce risk. The principle is: don't put all your eggs in one basket.
-                </div>
-                <span class="concept-category">Investing</span>
+            <div class="concept-item">
+                <h3 class="concept-title">Inflation</h3>
+                <p class="concept-description">
+                    The rate at which the general level of prices for goods and services rises, eroding purchasing power. 
+                    Understanding inflation is essential for preserving wealth and making investment decisions that outpace rising costs.
+                </p>
+                <span class="concept-category">Economic Principles</span>
             </div>
 
-            <div class="concept-card">
-                <div class="concept-title">Credit Score</div>
-                <div class="concept-description">
-                    A credit score is a numerical expression of your creditworthiness based on your credit history. It ranges from 300-850, with higher scores indicating better credit health and access to better loan terms.
-                </div>
-                <span class="concept-category">Credit</span>
+            <div class="concept-item">
+                <h3 class="concept-title">Liquidity</h3>
+                <p class="concept-description">
+                    The ease with which an asset can be converted into cash without affecting its market price. 
+                    High liquidity provides flexibility in financial planning and emergency situations.
+                </p>
+                <span class="concept-category">Asset Management</span>
             </div>
 
-            <div class="concept-card">
-                <div class="concept-title">Budget</div>
-                <div class="concept-description">
-                    A budget is a financial plan that helps you track income and expenses. The 50/30/20 rule suggests allocating 50% to needs, 30% to wants, and 20% to savings and debt repayment.
-                </div>
-                <span class="concept-category">Budgeting</span>
-            </div>
-
-            <div class="concept-card">
-                <div class="concept-title">Inflation</div>
-                <div class="concept-description">
-                    Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power. Understanding inflation is crucial for making smart long-term financial decisions.
-                </div>
-                <span class="concept-category">Economics</span>
+            <div class="concept-item">
+                <h3 class="concept-title">Market Capitalization</h3>
+                <p class="concept-description">
+                    The total market value of a company's outstanding shares, calculated by multiplying share price by total shares. 
+                    Market cap helps investors understand company size and compare investment opportunities across different scales.
+                </p>
+                <span class="concept-category">Stock Market Basics</span>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Money App. All rights reserved.</p>
+    </footer>
 
-<script>
-    // Fetch concepts from database
-    fetch('http://localhost:5000/api/concepts')
-        .then(response => response.json())
-        .then(concepts => {
-            const grid = document.querySelector('.concepts-grid');
-            grid.innerHTML = ''; // Clear existing concepts
-            
-            concepts.forEach(concept => {
-                const card = document.createElement('div');
-                card.className = 'concept-card';
-                card.innerHTML = `
-                    <div class="concept-title">${concept.title}</div>
-                    <div class="concept-description">${concept.description}</div>
-                    <span class="concept-category">${concept.category}</span>
-                `;
-                grid.appendChild(card);
-            });
-        })
-        .catch(err => console.error('Error fetching concepts:', err));
-</script>
-
-
-
+    <script>
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
 </body>
 </html>

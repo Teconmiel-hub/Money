@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Money</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Information Side -->
+        <div class="auth-info">
+            <img src="logo-coin.png" alt="Money App Logo" class="auth-info-logo">
+            <h2>Welcome to Money</h2>
+            <p>Your comprehensive financial education platform designed to help you master finance concepts, receive personalized guidance, and practice investing risk-free.</p>
+            
+            <ul class="auth-features">
+                <li>Learn essential financial concepts with clear, accessible explanations</li>
+                <li>Get personalized financial advice tailored to your goals</li>
+                <li>Practice trading stocks in a risk-free simulator environment</li>
+                <li>Track your progress and build confidence in financial decisions</li>
+                <li>Access professional-grade educational content completely free</li>
+            </ul>
+        </div>
+        
+        <!-- Form Side -->
+        <div class="auth-form">
+            <h1 class="auth-title">Welcome Back</h1>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">Sign In</button>
+                
+                <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="continueAsGuest()">Continue as Guest</button>
+            </form>
+            
+            <a href="register.html" class="auth-link">Don't have an account? Register here</a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Store user info in localStorage
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', email.split('@')[0]); // Use email prefix as name
+            
+            // Redirect to homepage
+            window.location.href = 'index.html';
+        }
+        
+        function continueAsGuest() {
+            // Set guest mode
+            localStorage.setItem('isLoggedIn', 'false');
+            localStorage.setItem('isGuest', 'true');
+            localStorage.setItem('userName', 'Guest');
+            
+            // Redirect to homepage
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

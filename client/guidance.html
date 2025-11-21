@@ -3,188 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Guidance - Money App</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f9ff;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .nav {
-            background: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav a {
-            color: #3b82f6;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .questionnaire-box {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: #1e3a8a;
-            margin-bottom: 20px;
-        }
-
-        p {
-            color: #64748b;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .coming-soon {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+    <title>Financial Guidance - Money</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1> Financial Guidance</h1>
-        <p>Get personalized advice for your financial goals</p>
-    </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">Money</a>
+            <div class="nav-links">
+                <a href="concepts.html" class="nav-link">Concepts</a>
+                <a href="guidance.html" class="nav-link">Guidance</a>
+                <a href="simulator.html" class="nav-link">Simulator</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <span class="user-name">John Doe</span>
+            </div>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
 
-    <div class="nav">
-        <a href="/">← Home</a>
-        <a href="/concepts">Financial Concepts</a>
-        <a href="/guidance">Financial Guidance</a>
-        <a href="/simulator">Stock Simulator</a>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <h1>Financial Guidance</h1>
+        <p>Get personalized financial advice based on your goals and situation</p>
+    </header>
 
+    <!-- Content -->
     <div class="container">
-        <div class="questionnaire-box">
-            <h2>Personalized Financial Questionnaire</h2>
-            <p>Answer a series of questions to receive customized financial advice tailored to your situation and goals.</p>
+        <div class="questionnaire-container">
+            <!-- Question Card -->
+            <div class="question-card" id="questionCard">
+                <p class="question-number" id="questionNumber">Question 1 of 5</p>
+                <h3 class="question-text" id="questionText">What is your primary financial goal?</h3>
+                
+                <div class="options-group" id="optionsGroup">
+                    <button class="option-button" onclick="selectOption(this, 'retirement')">Saving for retirement</button>
+                    <button class="option-button" onclick="selectOption(this, 'emergency')">Building an emergency fund</button>
+                    <button class="option-button" onclick="selectOption(this, 'debt')">Paying off debt</button>
+                    <button class="option-button" onclick="selectOption(this, 'investing')">Investing for growth</button>
+                </div>
+            </div>
             
-            <div class="coming-soon">
-                Questionnaire Module - Coming Soon!
-                <br><br>
-                This module will guide you through questions about your financial situation and provide personalized recommendations.
+            <!-- Navigation Buttons -->
+            <div class="flex" style="justify-content: space-between; margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn">Previous</button>
+                <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next Question</button>
+            </div>
+
+            <!-- Results Section (Hidden Initially) -->
+            <div class="advice-result hidden" id="resultsSection">
+                <h2 class="advice-title">Your Personalized Financial Guidance</h2>
+                <div class="advice-content" id="adviceContent">
+                    <!-- Results will be displayed here -->
+                </div>
+                <button class="btn btn-primary mt-3" onclick="restartQuestionnaire()">Start Over</button>
             </div>
         </div>
     </div>
 
-<script>
-    let questions = [];
-    let currentQuestion = 0;
-    let answers = [];
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Money App. All rights reserved.</p>
+    </footer>
 
-    // Fetch questions from database
-    fetch('http://localhost:5000/api/questions')
-        .then(response => response.json())
-        .then(data => {
-            questions = data;
+    <script>
+        let currentQuestion = 0;
+        let answers = {};
+        let selectedAnswer = null;
+
+        const questions = [
+            {
+                text: "What is your primary financial goal?",
+                options: [
+                    { text: "Saving for retirement", value: "retirement" },
+                    { text: "Building an emergency fund", value: "emergency" },
+                    { text: "Paying off debt", value: "debt" },
+                    { text: "Investing for growth", value: "investing" }
+                ]
+            },
+            {
+                text: "What is your current age range?",
+                options: [
+                    { text: "18-25", value: "young" },
+                    { text: "26-40", value: "early-career" },
+                    { text: "41-55", value: "mid-career" },
+                    { text: "56+", value: "pre-retirement" }
+                ]
+            },
+            {
+                text: "How would you describe your risk tolerance?",
+                options: [
+                    { text: "Conservative - Prefer stability", value: "conservative" },
+                    { text: "Moderate - Balanced approach", value: "moderate" },
+                    { text: "Aggressive - Willing to take risks", value: "aggressive" },
+                    { text: "Very Aggressive - Maximum growth", value: "very-aggressive" }
+                ]
+            },
+            {
+                text: "What is your current monthly savings rate?",
+                options: [
+                    { text: "Less than 5% of income", value: "low" },
+                    { text: "5-10% of income", value: "medium" },
+                    { text: "10-20% of income", value: "good" },
+                    { text: "More than 20% of income", value: "excellent" }
+                ]
+            },
+            {
+                text: "Do you have an emergency fund?",
+                options: [
+                    { text: "No emergency fund", value: "none" },
+                    { text: "Less than 3 months expenses", value: "partial" },
+                    { text: "3-6 months expenses", value: "adequate" },
+                    { text: "More than 6 months expenses", value: "excellent" }
+                ]
+            }
+        ];
+
+        function selectOption(button, value) {
+            // Remove selected class from all buttons
+            document.querySelectorAll('.option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            selectedAnswer = value;
+        }
+
+        function nextQuestion() {
+            if (selectedAnswer === null) {
+                alert('Please select an option before continuing.');
+                return;
+            }
+
+            // Save answer
+            answers[`question${currentQuestion}`] = selectedAnswer;
+            selectedAnswer = null;
+
+            // Move to next question
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('questionText').textContent = question.text;
+            
+            // Update options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+            
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option.text;
+                button.onclick = () => selectOption(button, option.value);
+                optionsGroup.appendChild(button);
+            });
+
+            // Update button states
+            document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'inline-flex';
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Get Results' : 'Next Question';
+
+            // Restore previous answer if going back
+            if (answers[`question${currentQuestion}`]) {
+                selectedAnswer = answers[`question${currentQuestion}`];
+                const buttons = document.querySelectorAll('.option-button');
+                buttons.forEach(btn => {
+                    if (btn.textContent === question.options.find(o => o.value === selectedAnswer).text) {
+                        btn.classList.add('selected');
+                    }
+                });
+            }
+        }
+
+        function showResults() {
+            document.getElementById('questionCard').classList.add('hidden');
+            document.querySelector('.flex').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+
+            // Generate personalized advice based on answers
+            const advice = generateAdvice(answers);
+            document.getElementById('adviceContent').innerHTML = advice;
+        }
+
+        function generateAdvice(answers) {
+            // This is a simplified advice generator
+            // In a real app, this would be more sophisticated
+            
+            let advice = '<h3 style="color: var(--primary-blue); margin-bottom: 16px;">Based on your responses:</h3>';
+            
+            advice += '<div style="background: var(--accent-lighter); padding: 20px; border-radius: 12px; margin-bottom: 16px;">';
+            advice += '<h4 style="color: var(--primary-navy); margin-bottom: 8px;">Your Financial Profile</h4>';
+            advice += '<ul style="list-style-position: inside; color: var(--gray-700);">';
+            
+            if (answers.question0 === 'retirement') {
+                advice += '<li>Primary focus: Long-term retirement planning</li>';
+                advice += '<li>Recommendation: Consider tax-advantaged retirement accounts like 401(k) and IRA</li>';
+            } else if (answers.question0 === 'emergency') {
+                advice += '<li>Primary focus: Building financial security</li>';
+                advice += '<li>Recommendation: Aim for 3-6 months of expenses in a high-yield savings account</li>';
+            } else if (answers.question0 === 'debt') {
+                advice += '<li>Primary focus: Debt elimination</li>';
+                advice += '<li>Recommendation: Focus on high-interest debt first using the avalanche method</li>';
+            } else if (answers.question0 === 'investing') {
+                advice += '<li>Primary focus: Wealth accumulation</li>';
+                advice += '<li>Recommendation: Consider diversified index funds for long-term growth</li>';
+            }
+
+            if (answers.question2 === 'conservative') {
+                advice += '<li>Risk Profile: Conservative - Focus on bonds and stable dividend stocks</li>';
+            } else if (answers.question2 === 'aggressive') {
+                advice += '<li>Risk Profile: Aggressive - Can consider growth stocks and emerging markets</li>';
+            }
+
+            advice += '</ul></div>';
+
+            advice += '<div style="background: white; padding: 20px; border-radius: 12px; border: 2px solid var(--primary-blue);">';
+            advice += '<h4 style="color: var(--primary-navy); margin-bottom: 8px;">Next Steps</h4>';
+            advice += '<ol style="list-style-position: inside; color: var(--gray-700); line-height: 1.8;">';
+            advice += '<li>Review your current financial situation and set specific goals</li>';
+            advice += '<li>Create a detailed budget and track your expenses</li>';
+            advice += '<li>Automate your savings to ensure consistency</li>';
+            advice += '<li>Consider consulting with a financial advisor for personalized guidance</li>';
+            advice += '<li>Regularly review and adjust your strategy as circumstances change</li>';
+            advice += '</ol></div>';
+
+            return advice;
+        }
+
+        function restartQuestionnaire() {
+            currentQuestion = 0;
+            answers = {};
+            selectedAnswer = null;
+            
+            document.getElementById('questionCard').classList.remove('hidden');
+            document.querySelector('.flex').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            
             displayQuestion();
-        })
-        .catch(err => console.error('Error:', err));
-
-    function displayQuestion() {
-        const box = document.querySelector('.questionnaire-box');
-        
-        if (currentQuestion >= questions.length) {
-            showResults();
-            return;
         }
 
-        const q = questions[currentQuestion];
-        box.innerHTML = `
-            <h2>Question ${currentQuestion + 1} of ${questions.length}</h2>
-            <p style="font-size: 20px; margin: 30px 0;">${q.questionText}</p>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                <button onclick="answer('yes')" style="padding: 15px 40px; font-size: 18px; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer;">Yes</button>
-                <button onclick="answer('no')" style="padding: 15px 40px; font-size: 18px; background: #ef4444; color: white; border: none; border-radius: 10px; cursor: pointer;">No</button>
-            </div>
-        `;
-    }
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
 
-    function answer(response) {
-        answers.push({
-            question: questions[currentQuestion].questionText,
-            answer: response,
-            category: questions[currentQuestion].category
-        });
-        currentQuestion++;
+        // Initialize first question
         displayQuestion();
-    }
-
-    function showResults() {
-        const box = document.querySelector('.questionnaire-box');
-        box.innerHTML = `
-            <h2>Your Financial Advice</h2>
-            <div style="background: #dbeafe; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                <p>Based on your answers, here are some recommendations:</p>
-                <ul style="text-align: left; margin-top: 15px; line-height: 2;">
-                    ${generateAdvice()}
-                </ul>
-            </div>
-            <button onclick="location.reload()" style="margin-top: 20px; padding: 15px 30px; background: #3b82f6; color: white; border: none; border-radius: 10px; cursor: pointer;">Start Over</button>
-        `;
-    }
-
-    function generateAdvice() {
-        let advice = [];
-        
-        answers.forEach(a => {
-            if (a.category === 'Savings' && a.answer === 'no') {
-                advice.push('<li>Build an emergency fund - start with $1000, then work towards 3-6 months of expenses</li>');
-            }
-            if (a.category === 'Debt' && a.answer === 'yes') {
-                advice.push('<li>Focus on paying off high-interest debt first using the avalanche or snowball method</li>');
-            }
-            if (a.category === 'Investing' && a.answer === 'yes') {
-                advice.push('<li>Consider opening a retirement account (IRA or 401k) to start investing for your future</li>');
-            }
-            if (a.category === 'Income' && a.answer === 'no') {
-                advice.push('<li>Focus on building stable income streams before major financial commitments</li>');
-            }
-        });
-
-        if (advice.length === 0) {
-            advice.push('<li>You are on a great financial track! Keep learning and growing your wealth.</li>');
-        }
-
-        return advice.join('');
-    }
-</script>
-
-
-
-
-
-
+    </script>
 </body>
-
 </html>
