@@ -1,9 +1,9 @@
 /* ================================================
-   MONEY APP - BRIGHT PROFESSIONAL DESIGN
-   Sophisticated Financial Education Platform
+   MONEY APP 
+   Financial Education Platform
    ================================================ */
 
-/* Import elegant fonts */
+/* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ================================================
@@ -93,7 +93,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Elegant floating particles */
+/* floating particles */
 body::before,
 body::after {
     content: '';
@@ -136,7 +136,7 @@ body > * {
 }
 
 /* ================================================
-   ELEGANT NAVIGATION
+   NAVIGATION
    ================================================ */
 
 .nav {
@@ -263,7 +263,7 @@ body > * {
 }
 
 /* ================================================
-   ELEGANT HEADER
+   HEADER
    ================================================ */
 
 .header {
@@ -344,6 +344,10 @@ body > * {
     margin: -60px auto 100px;
     text-align: center;
     animation: fadeIn 1s ease-out;
+    background: linear-gradient(180deg, #dbeafe 0%, #ffffff 100%);
+    padding: 60px 20px;
+    padding-top: 120px;
+    min-height: calc(100vh - 80px);
 }
 
 @keyframes fadeIn {
@@ -372,7 +376,7 @@ body > * {
     font-weight: 500;
 }
 
-/* Waterfall/Cascading Module Layout */
+/* waterfall/cascading module layout */
 .modules-grid {
     display: flex;
     flex-direction: column;
@@ -441,12 +445,6 @@ body > * {
     transition: all var(--transition-bounce);
 }
 
-.module-icon img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
-
 .module-card:hover .module-icon {
     transform: scale(1.1) rotate(-5deg);
     box-shadow: var(--shadow-medium);
@@ -474,7 +472,52 @@ body > * {
 }
 
 /* ================================================
-   AUTH PAGES - IMPROVED LAYOUT
+   MODULE ICON STYLES
+   ================================================ */
+
+/* emoji icon styling - shown by default */
+.module-icon-text {
+    width: 90px;
+    height: 90px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* gradient backgrounds for each module card's emoji */
+.module-card:nth-child(1) .module-icon-text {
+    background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+}
+
+.module-card:nth-child(2) .module-icon-text {
+    background: linear-gradient(135deg, #2d4a6e 0%, #4a7bb8 100%);
+}
+
+.module-card:nth-child(3) .module-icon-text {
+    background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%);
+}
+
+/* ================================================
+   KEYBOARD ACCESSIBILITY STYLES
+   ================================================ */
+
+/* focus outline for keyboard navigation */
+.module-card:focus {
+    outline: 3px solid var(--primary-blue);
+    outline-offset: 4px;
+}
+
+/* hide outline for mouse users (only show for keyboard) */
+.module-card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ================================================
+   AUTH PAGES 
    ================================================ */
 
 .auth-container {
@@ -684,6 +727,16 @@ body > * {
 .btn-danger:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(74, 123, 184, 0.4);
+}
+
+/* full width button utility */
+.btn-full {
+    width: 100%;
+}
+
+/* spacing for submit button specifically */
+.btn-submit {
+    margin-bottom: 16px;
 }
 
 /* ================================================
