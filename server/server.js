@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -37,7 +36,7 @@ app.get('/guidance', (req, res) => {
 
 app.get('/simulator', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/simulator.html'));
-});5
+});
 
 //login
 app.get('/login', (req, res) => {

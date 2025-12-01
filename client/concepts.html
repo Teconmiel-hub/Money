@@ -4,121 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Concepts - Money App</title>
+    <!-- linking the main stylesheet that has all the base styles for the app -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Additional styles for enhanced features */
+        /* this is where we're adding custom styles specifically for this page that aren't in the main stylesheet */
         
+        /* styling for the intro section at the top of the page that explains what this page is about */
         .page-intro {
             background: white;
             padding: 32px;
-            border-radius: var(--radius-lg);
-            border: 2px solid rgba(74, 123, 184, 0.15);
-            box-shadow: var(--shadow-soft);
+            border-radius: var(--radius-lg); /* using a css variable defined elsewhere for consistent rounded corners */
+            border: 2px solid rgba(74, 123, 184, 0.15); /* semi-transparent blue border */
+            box-shadow: var(--shadow-soft); /* soft shadow to make it pop off the page */
             margin-bottom: 32px;
             text-align: center;
         }
 
+        /* styling the paragraph text inside the intro section */
         .page-intro p {
             color: var(--navy-blue);
             font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.7; /* spacing between lines for readability */
             margin-bottom: 20px;
         }
 
+        /* container for the action buttons (test knowledge, search concepts) */
         .action-buttons {
             display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 12px; /* space between the buttons */
+            justify-content: center; /* centers the buttons horizontally */
+            flex-wrap: wrap; /* allows buttons to wrap to next line on small screens */
         }
 
-        /* Learning Path Indicator */
+        /* the blue gradient box that shows the learning path with numbered steps */
         .learning-path {
-            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%); /* diagonal gradient from dark to light blue */
             padding: 24px;
             border-radius: var(--radius-md);
             margin-bottom: 32px;
             color: white;
         }
 
+        /* title for the learning path section */
         .learning-path h3 {
-            font-family: var(--font-display);
+            font-family: var(--font-display); /* using the display font defined in css variables */
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 800; /* extra bold */
             margin-bottom: 16px;
             text-align: center;
         }
 
+        /* container that holds all the step circles in a row */
         .path-steps {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: space-between; /* spreads the steps evenly across the container */
+            align-items: center; /* vertically centers everything */
             gap: 12px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* allows steps to stack on smaller screens */
         }
 
+        /* individual step container (each numbered circle with label) */
         .path-step {
-            flex: 1;
-            min-width: 120px;
+            flex: 1; /* makes each step take equal space */
+            min-width: 120px; /* prevents steps from getting too squished */
             text-align: center;
             position: relative;
         }
 
+        /* the circular numbered badge for each step */
         .step-number {
             width: 36px;
             height: 36px;
             background: white;
             color: var(--primary-blue);
-            border-radius: 50%;
+            border-radius: 50%; /* makes it a perfect circle */
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            margin: 0 auto 8px;
+            margin: 0 auto 8px; /* centers it and adds space below */
             font-size: 16px;
         }
 
+        /* the text label under each step number */
         .step-label {
             font-size: 13px;
             font-weight: 600;
         }
 
-        /* Category Sections */
+        /* wrapper for each category section (fundamentals, credit & debt, etc) */
         .category-section {
-            margin-bottom: 40px;
+            margin-bottom: 40px; /* space between different categories */
         }
 
+        /* the colorful header bar for each category with icon and title */
         .category-header {
-            display: inline-flex;
+            display: inline-flex; /* makes it only as wide as its content */
             align-items: center;
             gap: 12px;
             padding: 12px 24px 12px 16px;
-            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
-            border-radius: 50px;
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%); /* same blue gradient */
+            border-radius: 50px; /* makes it pill-shaped */
             margin-bottom: 24px;
-            transition: all var(--transition-smooth);
-            box-shadow: 0 4px 15px rgba(74, 123, 184, 0.2);
+            transition: all var(--transition-smooth); /* smooth animation for hover effects */
+            box-shadow: 0 4px 15px rgba(74, 123, 184, 0.2); /* shadow underneath */
         }
 
+        /* hover effect for category headers - moves up slightly */
         .category-header:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 123, 184, 0.3);
+            transform: translateY(-2px); /* lifts it up 2 pixels */
+            box-shadow: 0 6px 20px rgba(74, 123, 184, 0.3); /* stronger shadow when hovering */
         }
 
+        /* emoji icon in the category header */
         .category-icon {
             font-size: 24px;
         }
 
+        /* the category name text */
         .category-title {
             font-family: var(--font-display);
             font-size: 20px;
             font-weight: 800;
             color: white;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.01em; /* slightly tighter letter spacing */
         }
 
+        /* small badge showing how many concepts are in this category */
         .category-count {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.25); /* semi-transparent white */
             color: white;
             padding: 4px 12px;
             border-radius: 50px;
@@ -127,6 +141,7 @@
             margin-left: 8px;
         }
 
+        /* subtitle text under each category header explaining what it covers */
         .category-subtitle {
             display: block;
             font-size: 14px;
@@ -136,63 +151,71 @@
             font-style: italic;
         }
 
-        /* Quiz Modal */
+
+        /*QUIZ*/
+        /* the overlay that appears when you start the quiz - covers the whole screen */
         .quiz-modal {
-            display: none;
-            position: fixed;
+            display: none; /* hidden by default */
+            position: fixed; /* stays in place when scrolling */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 10000;
+            background: rgba(0, 0, 0, 0.8); /* dark semi-transparent background */
+            z-index: 10000; /* very high value so it appears above everything */
             align-items: center;
             justify-content: center;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); /* blurs the background behind the modal */
         }
 
+        /* when the quiz modal is active, it becomes visible */
         .quiz-modal.active {
             display: flex;
         }
 
+        /* the white box that contains the actual quiz content */
         .quiz-container {
             background: white;
             border-radius: var(--radius-xl);
             max-width: 700px;
             width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-height: 90vh; /* takes up at most 90% of screen height */
+            overflow-y: auto; /* adds scrollbar if content is too tall */
             box-shadow: var(--shadow-strong);
-            animation: slideUp 0.4s ease-out;
+            animation: slideUp 0.4s ease-out; /* plays slide-up animation when appearing */
         }
 
+        /* animation that makes the quiz container slide up from below when it appears */
         @keyframes slideUp {
             from {
-                opacity: 0;
-                transform: translateY(50px);
+                opacity: 0; /* starts invisible */
+                transform: translateY(50px); /* starts 50px lower */
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+                opacity: 1; /* ends fully visible */
+                transform: translateY(0); /* ends at normal position */
             }
         }
 
+        /* blue header section at the top of the quiz with title and progress */
         .quiz-header {
             background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
             color: white;
             padding: 40px;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0; /* only rounds top corners */
             text-align: center;
         }
 
+        /* main title in the quiz header */
         .quiz-header h2 {
             font-family: var(--font-display);
             font-size: 36px;
-            font-weight: 900;
+            font-weight: 900; /* super bold */
             margin-bottom: 12px;
         }
 
+        /* the bar showing which question you're on and your current score */
         .quiz-progress {
             display: flex;
             justify-content: space-between;
@@ -202,19 +225,23 @@
             font-weight: 600;
         }
 
+        /* main content area of the quiz below the header */
         .quiz-body {
             padding: 48px;
         }
 
+        /* each individual quiz question - hidden by default */
         .quiz-question {
             display: none;
         }
 
+        /* when a question is active, it becomes visible and animates in */
         .quiz-question.active {
             display: block;
             animation: fadeInUp 0.5s ease-out;
         }
 
+        /* the actual question text displayed to the user */
         .question-text {
             font-family: var(--font-display);
             font-size: 26px;
@@ -224,12 +251,14 @@
             line-height: 1.4;
         }
 
+        /* container holding all the answer choices */
         .quiz-options {
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            flex-direction: column; /* stacks answers vertically */
+            gap: 16px; /* space between each answer option */
         }
 
+        /* individual answer choice button */
         .quiz-option {
             background: white;
             border: 2px solid rgba(74, 123, 184, 0.2);
@@ -243,30 +272,35 @@
             text-align: left;
         }
 
+        /* hover effect for answer options - changes color and slides right */
         .quiz-option:hover {
             background: var(--bright-blue);
             border-color: var(--primary-blue);
-            transform: translateX(8px);
+            transform: translateX(8px); /* slides 8px to the right */
         }
 
+        /* styling when user clicks an answer - turns blue */
         .quiz-option.selected {
             background: var(--primary-blue);
             border-color: var(--primary-blue);
             color: white;
         }
 
+        /* green styling for correct answers */
         .quiz-option.correct {
-            background: #d1fae5;
-            border-color: #10b981;
-            color: #065f46;
+            background: #d1fae5; /* light green */
+            border-color: #10b981; /* darker green border */
+            color: #065f46; /* dark green text */
         }
 
+        /* red styling for incorrect answers */
         .quiz-option.incorrect {
-            background: #fee2e2;
-            border-color: #ef4444;
-            color: #991b1b;
+            background: #fee2e2; /* light red */
+            border-color: #ef4444; /* darker red border */
+            color: #991b1b; /* dark red text */
         }
 
+        /* container for quiz navigation buttons at the bottom */
         .quiz-buttons {
             display: flex;
             gap: 16px;
@@ -274,27 +308,31 @@
             justify-content: space-between;
         }
 
+        /* results screen that shows after completing the quiz - hidden initially */
         .quiz-result {
             display: none;
             text-align: center;
         }
 
+        /* when results are active, they become visible with animation */
         .quiz-result.active {
             display: block;
             animation: fadeInUp 0.5s ease-out;
         }
 
+        /* big score display showing how many you got right */
         .result-score {
             font-family: var(--font-display);
             font-size: 72px;
             font-weight: 900;
-            background: linear-gradient(135deg, #4a7bb8 0%, #10b981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background: linear-gradient(135deg, #4a7bb8 0%, #10b981 100%); /* blue to green gradient */
+            -webkit-background-clip: text; /* clips background to text shape */
+            -webkit-text-fill-color: transparent; /* makes text transparent to show gradient */
             background-clip: text;
             margin: 32px 0;
         }
 
+        /* message that tells you how well you did */
         .result-message {
             font-size: 24px;
             color: var(--dark-blue);
@@ -302,6 +340,7 @@
             margin-bottom: 20px;
         }
 
+        /* container for the detailed stats breakdown */
         .result-details {
             background: var(--bright-blue);
             padding: 24px;
@@ -309,17 +348,20 @@
             margin: 32px 0;
         }
 
+        /* grid layout for the three statistics (correct, incorrect, accuracy) */
         .result-stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* three equal columns */
             gap: 20px;
             margin-top: 24px;
         }
 
+        /* individual stat box */
         .result-stat {
             text-align: center;
         }
 
+        /* the big number in each stat box */
         .stat-value {
             font-family: var(--font-display);
             font-size: 32px;
@@ -327,36 +369,41 @@
             color: var(--primary-blue);
         }
 
+        /* the label under each stat number */
         .stat-label {
             font-size: 13px;
             color: var(--navy-blue);
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-transform: uppercase; /* makes text all caps */
+            letter-spacing: 0.5px; /* spreads letters out a bit */
         }
 
-        /* Loading State */
+
+        /*SEARCH BAR */
+        /* loading state shown while concepts are being fetched from the database */
         .loading {
             text-align: center;
             padding: 60px;
             color: var(--navy-blue);
         }
 
+        /* the spinning circle animation shown during loading */
         .loading-spinner {
             width: 50px;
             height: 50px;
             border: 4px solid var(--bright-blue);
-            border-top-color: var(--primary-blue);
+            border-top-color: var(--primary-blue); /* different color on top creates spinning effect */
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite; /* spins continuously */
             margin: 0 auto 20px;
         }
 
+        /* animation that makes the spinner rotate 360 degrees */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* Search */
+        /* container for the search bar with alphabet filter */
         .search-container {
             background: white;
             padding: 24px;
@@ -366,6 +413,7 @@
             margin-bottom: 32px;
         }
 
+        /* the actual text input where users type their search query */
         .search-input {
             width: 100%;
             padding: 16px 20px;
@@ -376,21 +424,22 @@
             transition: all var(--transition-smooth);
         }
 
-        /* Alphabet Wheel */
+        /* row of circular letter buttons for filtering concepts alphabetically */
         .alphabet-wheel {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* wraps to multiple lines if needed */
             gap: 8px;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(74, 123, 184, 0.15);
+            border-top: 1px solid rgba(74, 123, 184, 0.15); /* divider line above the letters */
         }
 
+        /* individual circular letter button */
         .letter-btn {
             width: 36px;
             height: 36px;
-            border-radius: 50%;
+            border-radius: 50%; /* makes it circular */
             border: 2px solid rgba(74, 123, 184, 0.2);
             background: white;
             color: var(--primary-blue);
@@ -403,13 +452,15 @@
             justify-content: center;
         }
 
+        /* hover effect for letter buttons*/
         .letter-btn:hover {
             background: var(--primary-blue);
             color: white;
-            transform: scale(1.1);
+            transform: scale(1.1); /* makes it 10% bigger ***/
             box-shadow: 0 4px 12px rgba(74, 123, 184, 0.3);
         }
 
+        /**styling when a letter is actively selected */
         .letter-btn.active {
             background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
             color: white;
@@ -417,12 +468,14 @@
             box-shadow: 0 4px 12px rgba(74, 123, 184, 0.3);
         }
 
+        /* grayed out state for letters that don't have any concepts */
         .letter-btn.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            pointer-events: none;
+            opacity: 0.3; /* makes it semi-transparent */
+            cursor: not-allowed; /* shows the "not allowed" cursor */
+            pointer-events: none; /* disables clicking */
         }
 
+        /* button to clear the alphabet filter and show all concepts again */
         .clear-filter-btn {
             padding: 8px 20px;
             border-radius: 50px;
@@ -437,76 +490,111 @@
             letter-spacing: 0.5px;
         }
 
+        /* hover effect for clear filter button */
         .clear-filter-btn:hover {
             background: var(--primary-blue);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-2px); /* lifts up slightly */
         }
 
+        /* styling when user focuses on the search input */
         .search-input:focus {
-            outline: none;
+            outline: none; /* removes default browser outline */
             border-color: var(--primary-blue);
             background: var(--bright-blue);
-            box-shadow: 0 0 0 4px rgba(74, 123, 184, 0.1);
+            box-shadow: 0 0 0 4px rgba(74, 123, 184, 0.1); /* adds a subtle glow effect */
         }
 
+
+
+
+
+
+
+
+        /****responsive styles for tablets and phones********/
         @media (max-width: 768px) {
+            /* on mobile, stack category header elements vertically */
             .category-header {
                 flex-direction: column;
                 text-align: center;
             }
 
+            /* removes left margin on category count for mobile */
             .category-count {
                 margin-left: 0;
             }
 
+            /* reduces padding in quiz body on mobile */
             .quiz-body {
                 padding: 32px 24px;
             }
 
+            /* stacks result stats vertically on mobile instead of side by side */
             .result-stats {
                 grid-template-columns: 1fr;
             }
 
+            /* stacks learning path steps vertically on mobile */
             .path-steps {
                 flex-direction: column;
             }
         }
     </style>
 </head>
+
+
+
+
+
 <body>
-    <!-- Navigation -->
+    <!-- top navigation bar that stays on all pages -->
     <nav class="nav">
+        <!-- left side of navbar with logo and page links -->
         <div class="nav-left">
+            <!-- logo that links back to homepage -->
             <a href="index.html" class="nav-logo">Money</a>
+            <!-- links to the three main sections of the app -->
             <div class="nav-links">
                 <a href="concepts.html" class="nav-link">Concepts</a>
                 <a href="guidance.html" class="nav-link">Guidance</a>
                 <a href="simulator.html" class="nav-link">Simulator</a>
             </div>
         </div>
+
+        
+        <!-- right side of navbar with user info and logout button -->
         <div class="nav-right">
+            <!-- displays user avatar and name pulled from local storage -->
             <div class="user-info">
                 <div class="user-avatar" id="userAvatar">U</div>
                 <span class="user-name" id="userName">User</span>
             </div>
+            <!-- button that triggers logout function when clicked -->
             <button class="btn-logout" onclick="handleLogout()">Logout</button>
         </div>
     </nav>
 
-    <!-- Header -->
+
+
+
+
+    <!-- page header with title and subtitle -->
     <header class="header">
         <h1>Financial Concepts</h1>
         <p>Master the fundamentals of finance with our structured learning path</p>
     </header>
 
-    <!-- Main Content -->
+
+
+    <!-- main content wrapper -->
     <div class="container">
-        <!-- Page Introduction -->
+        <!-- intro section explaining the page and offering quick actions -->
         <div class="page-intro">
             <p>
                 Build your financial knowledge step-by-step. Our concepts are organized following proven financial education principles to help you master money management from foundation to advanced strategies.
             </p>
+            <!-- buttons for starting quiz or jumping to search . USIN ICONS BC ITS EASIER-->
             <div class="action-buttons">
                 <button class="btn btn-primary" onclick="startQuiz()">
                     🎯 Test Your Knowledge
@@ -517,30 +605,39 @@
             </div>
         </div>
 
-        <!-- Learning Path -->
+
+        <!-- FURTHER IMPLEMENTATION: this bar would connect the concepts or reorganize the concepts-->
+        <!-- visual learning path showing the 6 stages of financial education -->
         <div class="learning-path">
             <h3>📚 Your Financial Literacy Journey</h3>
+            <!-- container for all 6 numbered steps -->
             <div class="path-steps">
+                <!-- step 1: fundamentals -->
                 <div class="path-step">
                     <div class="step-number">1</div>
                     <div class="step-label">Fundamentals</div>
                 </div>
+                <!-- step 2: credit & debt -->
                 <div class="path-step">
                     <div class="step-number">2</div>
                     <div class="step-label">Credit & Debt</div>
                 </div>
+                <!-- step 3: banking -->
                 <div class="path-step">
                     <div class="step-number">3</div>
                     <div class="step-label">Banking</div>
                 </div>
+                <!-- step 4: investing -->
                 <div class="path-step">
                     <div class="step-number">4</div>
                     <div class="step-label">Investing</div>
                 </div>
+                <!-- step 5: retirement -->
                 <div class="path-step">
                     <div class="step-number">5</div>
                     <div class="step-label">Retirement</div>
                 </div>
+                <!-- step 6: advanced concepts -->
                 <div class="path-step">
                     <div class="step-number">6</div>
                     <div class="step-label">Advanced</div>
@@ -548,8 +645,17 @@
             </div>
         </div>
 
-        <!-- Search Bar -->
+
+
+
+
+
+
+
+        <!-- ITEM INCLUDED NOT ON THE INTERIM NOR THE PROPOSAL, EXTRA-->>
+        <!-- search bar with alphabet filter wheel -->
         <div class="search-container">
+            <!-- text input that triggers search function on every keystroke -->
             <input 
                 type="text" 
                 id="searchInput" 
@@ -558,14 +664,18 @@
                 onkeyup="searchConcepts()"
             >
             
-            <!-- Alphabet Wheel -->
+
+
+            <!-- container for alphabet filter buttons - will be populated by javascript -->
             <div class="alphabet-wheel" id="alphabetWheel">
-                <!-- Letters will be generated by JavaScript -->
+                <!-- letter buttons will be generated dynamically -->
             </div>
         </div>
 
-        <!-- Concepts Categories -->
+
+        <!-- main container where all the concept cards will be displayed -->
         <div id="conceptsContainer">
+            <!-- loading state shown initially while fetching data from backend -->
             <div class="loading">
                 <div class="loading-spinner"></div>
                 <p>Loading financial concepts from database...</p>
@@ -573,29 +683,40 @@
         </div>
     </div>
 
-    <!-- Quiz Modal -->
+
+
+    <!--   QUIZ WAS ALSO NOT INCLUDED IN THE INTERIM PROJECT NOR THE PROPOSAL BUT ADDS INTERACTIVE AND COMMERCIAL VALUE-->>
+    <!-- quiz modal overlay - hidden by default, shown when user starts quiz -->
     <div class="quiz-modal" id="quizModal">
+        <!-- white container box for quiz content -->
         <div class="quiz-container">
+            <!-- blue header section with quiz title and progress tracker -->
             <div class="quiz-header">
                 <h2>Financial Literacy Quiz</h2>
                 <p>Test your knowledge and track your progress!</p>
+                <!-- displays current question number and running score -->
                 <div class="quiz-progress">
                     <span>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span></span>
                     <span>Score: <span id="currentScore">0</span></span>
                 </div>
             </div>
+            <!-- main quiz content area -->
             <div class="quiz-body">
-                <!-- Questions will be inserted here -->
+                <!-- questions will beinserted here by javascript -->
                 <div id="quizQuestions"></div>
 
-                <!-- Result Screen -->
+                <!-- results screen shown after completing all questions -->
                 <div class="quiz-result" id="quizResult">
+                    <!-- big score display like "4/5" -->
                     <div class="result-score" id="finalScore">0/5</div>
+                    <!-- encouraging message based on performance -->
                     <div class="result-message" id="resultMessage"></div>
+                    <!-- box showing detailed breakdown of performance -->
                     <div class="result-details">
                         <p style="font-weight: 700; color: var(--dark-blue); margin-bottom: 16px;">
                             Your Performance
                         </p>
+                        <!-- three columns showing correct, incorrect, and percentage -->
                         <div class="result-stats">
                             <div class="result-stat">
                                 <div class="stat-value" id="correctAnswers">0</div>
@@ -611,15 +732,19 @@
                             </div>
                         </div>
                     </div>
+                    <!-- buttons to review concepts or retake the quiz -->
                     <div class="quiz-buttons">
                         <button class="btn btn-secondary" onclick="closeQuiz()">Review Concepts</button>
                         <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
                     </div>
                 </div>
+                  
 
-                <!-- Quiz Navigation Buttons -->
+                <!--HERE MAYBE I WOULD INCLUDE A GO BACK BUTTON BUT I DISCARDED IT-->>
+                <!-- navigation buttons shown during quiz (exit and next) -->
                 <div class="quiz-buttons" id="quizNav">
                     <button class="btn btn-secondary" onclick="closeQuiz()">Exit Quiz</button>
+                    <!-- next button hidden initially, shown after answering a question -->
                     <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">
                         Next Question
                     </button>
@@ -628,441 +753,14 @@
         </div>
     </div>
 
-    <!-- Footer -->
+
+
+    <!-- footer at bottom of page with copyright info -->
     <footer class="footer">
         <p>&copy; 2025 Money App. All rights reserved.</p>
     </footer>
 
-    <script>
-        // API endpoint - adjust this to match your backend
-        const API_URL = 'http://localhost:5000/api/concepts';
-        
-        let allConcepts = [];
-        let quizQuestions = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let selectedAnswer = null;
-
-        // Define the new category structure based on "I Will Teach You To Be Rich"
-        const CATEGORY_STRUCTURE = {
-            'Money Fundamentals': {
-                icon: '💡',
-                subtitle: 'The foundation of financial success',
-                order: 1
-            },
-            'Credit & Debt': {
-                icon: '💳',
-                subtitle: 'Managing credit wisely and eliminating debt',
-                order: 2
-            },
-            'Banking & Accounts': {
-                icon: '🏦',
-                subtitle: 'Optimizing where your money lives',
-                order: 3
-            },
-            'Investing Basics': {
-                icon: '📈',
-                subtitle: 'Growing your wealth through smart investments',
-                order: 4
-            },
-            'Retirement Planning': {
-                icon: '🎯',
-                subtitle: 'Building long-term financial security',
-                order: 5
-            },
-            'Advanced Concepts': {
-                icon: '🎓',
-                subtitle: 'Next-level wealth building strategies',
-                order: 6
-            }
-        };
-
-        // Initialize
-        async function init() {
-            loadUserInfo();
-            await loadConcepts();
-            createAlphabetWheel();
-        }
-
-        // Load user info
-        function loadUserInfo() {
-            const userName = localStorage.getItem('userName') || 'Guest';
-            const isGuest = localStorage.getItem('isGuest') === 'true';
-            
-            document.getElementById('userName').textContent = userName;
-            
-            const avatar = document.getElementById('userAvatar');
-            if (isGuest) {
-                avatar.textContent = 'G';
-            } else {
-                const initials = userName.substring(0, 2).toUpperCase();
-                avatar.textContent = initials;
-            }
-        }
-
-        // Load concepts from database
-        async function loadConcepts() {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                allConcepts = data;
-                displayConcepts(allConcepts);
-            } catch (error) {
-                console.error('Error loading concepts:', error);
-                document.getElementById('conceptsContainer').innerHTML = `
-                    <div class="alert alert-error">
-                        <strong>Error loading concepts.</strong><br>
-                        Make sure your backend server is running on port 5000.<br>
-                        <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 16px;">
-                            Retry
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        // Display concepts grouped by new category structure
-        function displayConcepts(concepts) {
-            // Group by category
-            const grouped = concepts.reduce((acc, concept) => {
-                const cat = concept.category || 'Money Fundamentals';
-                if (!acc[cat]) acc[cat] = [];
-                acc[cat].push(concept);
-                return acc;
-            }, {});
-
-            let html = '';
-
-            // Sort categories by defined order
-            const sortedCategories = Object.keys(grouped).sort((a, b) => {
-                const orderA = CATEGORY_STRUCTURE[a]?.order || 999;
-                const orderB = CATEGORY_STRUCTURE[b]?.order || 999;
-                return orderA - orderB;
-            });
-
-            sortedCategories.forEach(category => {
-                const config = CATEGORY_STRUCTURE[category] || { 
-                    icon: '📚', 
-                    subtitle: '',
-                    order: 999 
-                };
-                const conceptsList = grouped[category];
-
-                html += `
-                    <div class="category-section">
-                        <div class="category-header">
-                            <div class="category-icon">${config.icon}</div>
-                            <h2 class="category-title">${category}</h2>
-                            <span class="category-count">${conceptsList.length}</span>
-                        </div>
-                        ${config.subtitle ? `<span class="category-subtitle">${config.subtitle}</span>` : ''}
-                        <div class="concepts-grid">
-                            ${conceptsList.map(concept => `
-                                <div class="concept-item" data-title="${concept.title.toLowerCase()}" data-description="${concept.description.toLowerCase()}">
-                                    <h3 class="concept-title">${concept.title}</h3>
-                                    <p class="concept-description">${concept.description}</p>
-                                    <span class="concept-category">${category}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('conceptsContainer').innerHTML = html;
-            
-            // Update alphabet wheel after concepts are displayed
-            if (document.getElementById('alphabetWheel').children.length > 0) {
-                updateLetterAvailability();
-            }
-        }
-
-        // Search concepts
-        function searchConcepts() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const conceptItems = document.querySelectorAll('.concept-item');
-
-            // Clear active letter when searching
-            if (query) {
-                document.querySelectorAll('.letter-btn').forEach(btn => btn.classList.remove('active'));
-            }
-
-            conceptItems.forEach(item => {
-                const title = item.getAttribute('data-title');
-                const description = item.getAttribute('data-description');
-                
-                if (title.includes(query) || description.includes(query)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Create alphabet wheel
-        function createAlphabetWheel() {
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-            const wheelContainer = document.getElementById('alphabetWheel');
-            
-            // Add clear filter button
-            const clearBtn = document.createElement('button');
-            clearBtn.className = 'clear-filter-btn';
-            clearBtn.textContent = 'All';
-            clearBtn.onclick = clearLetterFilter;
-            wheelContainer.appendChild(clearBtn);
-            
-            // Add letter buttons
-            alphabet.forEach(letter => {
-                const btn = document.createElement('button');
-                btn.className = 'letter-btn';
-                btn.textContent = letter;
-                btn.onclick = () => filterByLetter(letter);
-                btn.dataset.letter = letter;
-                wheelContainer.appendChild(btn);
-            });
-
-            updateLetterAvailability();
-        }
-
-        // Filter concepts by letter
-        function filterByLetter(letter) {
-            // Clear search input
-            document.getElementById('searchInput').value = '';
-            
-            // Update active state
-            document.querySelectorAll('.letter-btn').forEach(btn => {
-                if (btn.dataset.letter === letter) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // Filter concepts
-            const conceptItems = document.querySelectorAll('.concept-item');
-            conceptItems.forEach(item => {
-                const title = item.getAttribute('data-title');
-                if (title.startsWith(letter.toLowerCase())) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Clear letter filter
-        function clearLetterFilter() {
-            // Clear search input
-            document.getElementById('searchInput').value = '';
-            
-            // Remove active state from all letters
-            document.querySelectorAll('.letter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show all concepts
-            const conceptItems = document.querySelectorAll('.concept-item');
-            conceptItems.forEach(item => {
-                item.style.display = 'block';
-            });
-        }
-
-        // Update which letters are available
-        function updateLetterAvailability() {
-            const conceptItems = document.querySelectorAll('.concept-item');
-            const availableLetters = new Set();
-
-            conceptItems.forEach(item => {
-                const title = item.getAttribute('data-title');
-                if (title && title.length > 0) {
-                    availableLetters.add(title[0].toUpperCase());
-                }
-            });
-
-            // Enable/disable letter buttons based on availability
-            document.querySelectorAll('.letter-btn').forEach(btn => {
-                const letter = btn.dataset.letter;
-                if (availableLetters.has(letter)) {
-                    btn.classList.remove('disabled');
-                } else {
-                    btn.classList.add('disabled');
-                }
-            });
-        }
-
-        // Quiz Functions
-        async function startQuiz() {
-            if (allConcepts.length === 0) {
-                alert('Please wait for concepts to load first!');
-                return;
-            }
-
-            // Generate quiz questions
-            generateQuizQuestions();
-            
-            // Reset quiz state
-            currentQuestionIndex = 0;
-            score = 0;
-            selectedAnswer = null;
-            
-            // Show modal and first question
-            document.getElementById('quizModal').classList.add('active');
-            document.getElementById('quizResult').classList.remove('active');
-            document.getElementById('quizNav').style.display = 'flex';
-            
-            displayQuestion();
-        }
-
-        function generateQuizQuestions() {
-            // Select 5 random concepts
-            const shuffled = [...allConcepts].sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, Math.min(5, shuffled.length));
-
-            quizQuestions = selected.map(concept => {
-                // Generate a question based on the concept
-                const questionTypes = [
-                    {
-                        question: `What is ${concept.title}?`,
-                        correct: concept.description,
-                        type: 'definition'
-                    },
-                    {
-                        question: `Which statement best describes ${concept.title}?`,
-                        correct: concept.description,
-                        type: 'description'
-                    }
-                ];
-
-                const chosen = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-
-                // Generate wrong answers from other concepts
-                const wrongAnswers = allConcepts
-                    .filter(c => c._id !== concept._id)
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, 3)
-                    .map(c => c.description);
-
-                // Combine and shuffle
-                const allAnswers = [chosen.correct, ...wrongAnswers]
-                    .sort(() => 0.5 - Math.random());
-
-                return {
-                    question: chosen.question,
-                    answers: allAnswers,
-                    correct: chosen.correct,
-                    concept: concept.title
-                };
-            });
-
-            document.getElementById('totalQuestions').textContent = quizQuestions.length;
-        }
-
-        function displayQuestion() {
-            if (currentQuestionIndex >= quizQuestions.length) {
-                showResults();
-                return;
-            }
-
-            const question = quizQuestions[currentQuestionIndex];
-            
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-            document.getElementById('currentScore').textContent = score;
-
-            const html = `
-                <div class="quiz-question active">
-                    <div class="question-text">${question.question}</div>
-                    <div class="quiz-options">
-                        ${question.answers.map((answer, index) => `
-                            <div class="quiz-option" onclick="selectAnswer(${index}, '${answer.replace(/'/g, "\\'")}')">
-                                ${answer}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('quizQuestions').innerHTML = html;
-            document.getElementById('nextBtn').style.display = 'none';
-            selectedAnswer = null;
-        }
-
-        function selectAnswer(index, answer) {
-            if (selectedAnswer !== null) return; // Already answered
-
-            selectedAnswer = answer;
-            const question = quizQuestions[currentQuestionIndex];
-            const options = document.querySelectorAll('.quiz-option');
-
-            options.forEach((option, i) => {
-                option.style.pointerEvents = 'none';
-                
-                if (option.textContent.trim() === question.correct.trim()) {
-                    option.classList.add('correct');
-                } else if (i === index) {
-                    option.classList.add('incorrect');
-                }
-            });
-
-            if (answer === question.correct) {
-                score++;
-                document.getElementById('currentScore').textContent = score;
-            }
-
-            document.getElementById('nextBtn').style.display = 'block';
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            displayQuestion();
-        }
-
-        function showResults() {
-            document.getElementById('quizNav').style.display = 'none';
-            document.getElementById('quizResult').classList.add('active');
-
-            const total = quizQuestions.length;
-            const percentage = Math.round((score / total) * 100);
-
-            document.getElementById('finalScore').textContent = `${score}/${total}`;
-            document.getElementById('correctAnswers').textContent = score;
-            document.getElementById('incorrectAnswers').textContent = total - score;
-            document.getElementById('percentageScore').textContent = `${percentage}%`;
-
-            let message = '';
-            if (percentage >= 80) {
-                message = '🎉 Excellent! You\'re a financial literacy expert!';
-            } else if (percentage >= 60) {
-                message = '👍 Great job! You have a solid understanding!';
-            } else if (percentage >= 40) {
-                message = '📚 Good effort! Review the concepts and try again!';
-            } else {
-                message = '💪 Keep learning! Practice makes perfect!';
-            }
-
-            document.getElementById('resultMessage').textContent = message;
-        }
-
-        function restartQuiz() {
-            document.getElementById('quizResult').classList.remove('active');
-            startQuiz();
-        }
-
-        function closeQuiz() {
-            document.getElementById('quizModal').classList.remove('active');
-        }
-
-        // Logout handler
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('isGuest');
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', init);
-    </script>
+    <!-- linking external javascript file that contains all the page functionality -->
+    <script src="conceptsjs.js"></script>
 </body>
 </html>

@@ -1,42 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money - Financial Education Platform</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- link to css file - goes up one folder to find styles.css in client folder -->
+    <link rel="stylesheet" href="../styles.css">
 </head>
+
+
 <body>
-    <!-- navigation -->
+    <!-- navigation bar at the top of the page -->
     <nav class="nav">
+        <!-- left side of navigation with logo and main links -->
         <div class="nav-left">
+            <!-- logo that links back to homepage -->
             <a href="index.html" class="nav-logo">Money</a>
+            <!-- main navigation links to different sections -->
             <div class="nav-links">
                 <a href="concepts.html" class="nav-link">Concepts</a>
                 <a href="guidance.html" class="nav-link">Guidance</a>
                 <a href="simulator.html" class="nav-link">Simulator</a>
             </div>
         </div>
+
+
+
+
+        <!-- right side of navigation with user info and logout -->
         <div class="nav-right">
+            <!-- displays current user information -->
             <div class="user-info" id="userInfo">
+                <!-- user avatar showing first letter of name -->
                 <div class="user-avatar" id="userAvatar">G</div>
+                <!-- displays username or "guest" -->
                 <span class="user-name" id="userName">Guest</span>
             </div>
+            <!-- button to logout and return to login page -->
             <button class="btn-logout" id="logoutBtn">Logout</button>
         </div>
     </nav>
 
-    <!-- homepage content -->
+
+
+
+
+
+    <!-- main content container for homepage -->
     <div class="homepage-container">
+        <!-- main title welcoming users -->
         <h1 class="homepage-title">Welcome to Money</h1>
+        <!-- subtitle explaining what the platform does -->
         <p class="homepage-subtitle">Your comprehensive financial education platform. Master concepts, get personalized guidance, and practice with our stock market simulator.</p>
         
+
+
+
+
+        <!-- grid layout containing the three main modules -->
         <div class="modules-grid">
-            <!-- module 1: financial concepts -->
+
+            <!-- module 1: financial concepts section -->
             <div class="module-card" data-route="concepts" role="button" tabindex="0">
+                <!-- icon representing learning/books -->
                 <div class="module-icon">
                     <div class="module-icon-text">📚</div>
                 </div>
+                <!-- text content for this module -->
                 <div class="module-content">
                     <div class="module-title">Financial Concepts</div>
                     <div class="module-description">
@@ -44,12 +76,15 @@
                     </div>
                 </div>
             </div>
+
             
-            <!-- module 2: financial guidance -->
+            <!-- module 2: financial guidance section -->
             <div class="module-card" data-route="guidance" role="button" tabindex="0">
+                <!-- icon representing education/graduation -->
                 <div class="module-icon">
                     <div class="module-icon-text">🎓</div>
                 </div>
+                <!-- text content for this module -->
                 <div class="module-content">
                     <div class="module-title">Financial Guidance</div>
                     <div class="module-description">
@@ -57,12 +92,16 @@
                     </div>
                 </div>
             </div>
+
+
             
-            <!-- module 3: stock market simulator -->
+            <!-- module 3: stock market simulator section -->
             <div class="module-card" data-route="simulator" role="button" tabindex="0">
+                <!-- icon representing stocks/growth -->
                 <div class="module-icon">
                     <div class="module-icon-text">📈</div>
                 </div>
+                <!-- text content for this module -->
                 <div class="module-content">
                     <div class="module-title">Stock Market Simulator</div>
                     <div class="module-description">
@@ -73,14 +112,18 @@
         </div>
     </div>
 
-    <!-- footer -->
+
+
+    <!-- footer at bottom of page with copyright -->
     <footer class="footer">
         <p>&copy; 2025 Money App. All rights reserved.</p>
     </footer>
 
-    <!-- load shared code first -->
-    <script src="js/common.js"></script>
-    <!-- load page-specific code second -->
-    <script src="js/index.js"></script>
+
+
+    <!-- load shared code first-->
+    <script src="../js/common.js"></script>
+    <!-- load page-specific code second - handles homepage interactions -->
+    <script src="../js/index.js"></script>
 </body>
 </html>

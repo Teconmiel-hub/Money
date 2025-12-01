@@ -98,4 +98,4 @@ function showError(message) {
     setTimeout(() => {
         errorMessage.classList.add('hidden');
     }, 5000);
-}
+}S

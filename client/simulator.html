@@ -4,56 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Market Simulator - Money App</title>
+    <!-- linking the main stylesheet that has all the base styles for the app -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Minimal additional styles for new features only */
+        /* ========================================
+           instructions section
+           ======================================== */
         
-        /* Instructions Section */
+        /* main container for the how-to-use guide with step cards */
         .instructions-section {
             background: white;
             padding: 44px;
-            border-radius: var(--radius-lg);
-            border: 2px solid rgba(74, 123, 184, 0.15);
-            box-shadow: var(--shadow-soft);
+            border-radius: var(--radius-lg); /* consistent rounded corners */
+            border: 2px solid rgba(74, 123, 184, 0.15); /* subtle blue border */
+            box-shadow: var(--shadow-soft); /* soft shadow for depth */
             margin-bottom: 32px;
         }
 
+        /* grid layout for instruction step cards */
         .instruction-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive columns */
+            gap: 24px; /* space between cards */
             margin-top: 28px;
         }
 
+        /* individual step card styling with hover effects */
         .step-card {
-            background: var(--bright-blue);
+            background: var(--bright-blue); /* light blue background */
             padding: 28px;
             border-radius: var(--radius-md);
             border: 2px solid rgba(74, 123, 184, 0.2);
-            transition: all var(--transition-smooth);
+            transition: all var(--transition-smooth); /* smooth hover animation */
         }
 
+        /* hover effect for step cards - lifts up slightly */
         .step-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px); /* moves up 4 pixels */
             box-shadow: var(--shadow-soft);
-            border-color: var(--primary-blue);
+            border-color: var(--primary-blue); /* highlights border */
         }
 
+        /* circular numbered badge for each step */
         .step-number {
             width: 48px;
             height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+            border-radius: 50%; /* makes it circular */
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%); /* gradient background */
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
+            font-weight: 900; /* extra bold */
             font-size: 20px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 15px rgba(74, 123, 184, 0.3);
+            box-shadow: 0 4px 15px rgba(74, 123, 184, 0.3); /* shadow for depth */
         }
 
+        /* title text for each instruction step */
         .step-title {
             font-weight: 800;
             color: var(--dark-blue);
@@ -61,13 +69,18 @@
             font-size: 16px;
         }
 
+        /* description text explaining each step */
         .step-description {
             color: var(--navy-blue);
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.6; /* readable line spacing */
         }
 
-        /* Projection Section */
+        /* ========================================
+           projection calculator section
+           ======================================== */
+        
+        /* container for the investment projection tool */
         .projection-section {
             background: white;
             padding: 44px;
@@ -77,49 +90,56 @@
             margin-bottom: 32px;
         }
 
+        /* controls for selecting time period (days/weeks/months) */
         .time-controls {
             display: flex;
-            gap: 20px;
+            gap: 20px; /* space between elements */
             align-items: center;
             margin: 28px 0;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* wraps on small screens */
         }
 
+        /* container for the three time unit buttons */
         .time-unit-buttons {
             display: flex;
             gap: 12px;
         }
 
+        /* individual time unit button (days, weeks, months) */
         .time-btn {
             padding: 12px 24px;
             border: 2px solid var(--primary-blue);
             background: white;
             color: var(--primary-blue);
-            border-radius: 50px;
+            border-radius: 50px; /* fully rounded pill shape */
             cursor: pointer;
             font-weight: 700;
             font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-transform: uppercase; /* makes text all caps */
+            letter-spacing: 0.5px; /* slight spacing between letters */
             transition: all var(--transition-smooth);
         }
 
+        /* active state for selected time button */
         .time-btn.active {
-            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%); /* gradient fill */
             color: white;
             box-shadow: 0 4px 15px rgba(74, 123, 184, 0.3);
         }
 
+        /* hover effect for time buttons */
         .time-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px); /* lifts up 2 pixels */
             box-shadow: 0 4px 15px rgba(74, 123, 184, 0.2);
         }
 
+        /* container for the slider control */
         .slider-container {
-            flex: 1;
-            min-width: 300px;
+            flex: 1; /* takes up remaining space */
+            min-width: 300px; /* prevents getting too narrow */
         }
 
+        /* label showing current slider value */
         .slider-label {
             font-weight: 700;
             color: var(--dark-blue);
@@ -127,33 +147,37 @@
             font-size: 14px;
         }
 
+        /* the range slider input itself */
         .slider {
             width: 100%;
             height: 8px;
             border-radius: 5px;
             background: var(--bright-blue);
             outline: none;
-            -webkit-appearance: none;
+            -webkit-appearance: none; /* removes default browser styling */
             cursor: pointer;
         }
 
+        /* styling for the slider thumb (the draggable circle) on webkit browsers */
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 24px;
             height: 24px;
-            border-radius: 50%;
+            border-radius: 50%; /* makes it circular */
             background: var(--primary-blue);
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(74, 123, 184, 0.4);
             transition: all var(--transition-smooth);
         }
 
+        /* hover effect for slider thumb */
         .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+            transform: scale(1.2); /* makes it 20% bigger */
             box-shadow: 0 4px 12px rgba(74, 123, 184, 0.5);
         }
 
+        /* styling for slider thumb on firefox */
         .slider::-moz-range-thumb {
             width: 24px;
             height: 24px;
@@ -164,6 +188,7 @@
             box-shadow: 0 2px 8px rgba(74, 123, 184, 0.4);
         }
 
+        /* box that displays the projection results */
         .projection-display {
             background: var(--bright-blue);
             padding: 32px;
@@ -172,34 +197,42 @@
             border: 2px solid rgba(74, 123, 184, 0.2);
         }
 
+        /* large number showing projected value */
         .projection-value {
             font-family: var(--font-display);
             font-size: 48px;
             font-weight: 900;
             color: var(--primary-blue);
             margin-bottom: 12px;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.03em; /* tighter letter spacing for large numbers */
         }
 
+        /* shows the growth amount and percentage */
         .projection-growth {
             font-size: 24px;
             font-weight: 800;
-            color: var(--bright-green);
+            color: var(--bright-green); /* green for positive growth */
         }
 
+        /* negative growth gets different color */
         .projection-growth.negative {
             color: var(--primary-blue);
         }
 
+        /* disclaimer text about projections */
         .projection-note {
             color: var(--navy-blue);
             margin-top: 20px;
             font-size: 14px;
             line-height: 1.6;
-            opacity: 0.8;
+            opacity: 0.8; /* slightly faded */
         }
 
-        /* Company Directory */
+        /* ========================================
+           company directory section
+           ======================================== */
+        
+        /* container for browsable list of all available stocks */
         .company-directory {
             background: white;
             padding: 44px;
@@ -209,29 +242,33 @@
             margin-bottom: 32px;
         }
 
+        /* grid layout for company cards */
         .company-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* responsive columns */
             gap: 16px;
             margin-top: 28px;
         }
 
+        /* individual company card in the directory */
         .company-item {
             background: white;
             padding: 20px;
             border-radius: var(--radius-sm);
             border: 2px solid rgba(74, 123, 184, 0.15);
-            cursor: pointer;
+            cursor: pointer; /* indicates it's clickable */
             transition: all var(--transition-smooth);
         }
 
+        /* hover effect for company cards */
         .company-item:hover {
             background: var(--bright-blue);
             border-color: var(--primary-blue);
-            transform: translateY(-4px);
+            transform: translateY(-4px); /* lifts up */
             box-shadow: var(--shadow-soft);
         }
 
+        /* stock ticker symbol display */
         .company-symbol {
             font-weight: 900;
             color: var(--primary-blue);
@@ -239,6 +276,7 @@
             margin-bottom: 6px;
         }
 
+        /* full company name */
         .company-name {
             color: var(--navy-blue);
             font-size: 13px;
@@ -246,26 +284,32 @@
             font-weight: 600;
         }
 
+        /* sector badge (technology, finance, etc) */
         .company-sector {
             display: inline-block;
             background: var(--bright-blue);
             color: var(--primary-blue);
             padding: 4px 12px;
-            border-radius: 50px;
+            border-radius: 50px; /* pill-shaped */
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
+            text-transform: uppercase; /* all caps */
         }
 
-        /* Trading Section Enhancements */
+        /* ========================================
+           trading section
+           ======================================== */
+        
+        /* grid layout for stock trading cards */
         .stocks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* responsive columns */
             gap: 24px;
             margin-top: 28px;
         }
 
+        /* individual stock card for buying/selling */
         .stock-card {
             background: white;
             border: 2px solid rgba(74, 123, 184, 0.15);
@@ -273,22 +317,25 @@
             padding: 28px;
             transition: all var(--transition-smooth);
             cursor: pointer;
-            overflow: hidden;
+            overflow: hidden; /* prevents content from spilling out */
         }
 
+        /* hover effect for stock cards */
         .stock-card:hover {
             border-color: var(--primary-blue);
             box-shadow: var(--shadow-soft);
-            transform: translateY(-4px);
+            transform: translateY(-4px); /* lifts up */
         }
 
+        /* header section of stock card with symbol and price */
         .stock-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* spreads items apart */
             align-items: center;
             margin-bottom: 16px;
         }
 
+        /* smaller company name below symbol */
         .stock-name-small {
             color: var(--navy-blue);
             font-size: 14px;
@@ -296,34 +343,39 @@
             font-weight: 600;
         }
 
+        /* badge showing daily price change */
         .stock-change {
             font-weight: 700;
             padding: 6px 14px;
-            border-radius: 50px;
+            border-radius: 50px; /* pill-shaped */
             display: inline-block;
             font-size: 13px;
         }
 
+        /* green styling for positive price changes */
         .stock-change.positive {
-            background: #d1fae5;
-            color: #065f46;
+            background: #d1fae5; /* light green background */
+            color: #065f46; /* dark green text */
         }
 
+        /* blue styling for negative price changes */
         .stock-change.negative {
             background: var(--bright-blue);
             color: var(--primary-blue);
         }
 
+        /* container for buy input and button */
         .stock-actions {
             display: flex;
             gap: 10px;
             margin-top: 20px;
-            align-items: stretch;
+            align-items: stretch; /* makes elements same height */
         }
 
+        /* input field for number of shares */
         .stock-input {
-            flex: 1;
-            min-width: 0;
+            flex: 1; /* takes up available space */
+            min-width: 0; /* prevents flex issues */
             padding: 14px 16px;
             border: 2px solid rgba(74, 123, 184, 0.2);
             border-radius: var(--radius-sm);
@@ -331,36 +383,47 @@
             font-weight: 600;
             font-family: var(--font-body);
             transition: all var(--transition-smooth);
-            text-align: center;
+            text-align: center; /* centers the number */
         }
 
+        /* focus state for input field */
         .stock-input:focus {
-            outline: none;
+            outline: none; /* removes default browser outline */
             border-color: var(--primary-blue);
             background: var(--bright-blue);
         }
 
+        /* buy button styling within stock actions */
         .stock-actions .btn {
-            flex-shrink: 0;
-            min-width: 90px;
+            flex-shrink: 0; /* prevents button from shrinking */
+            min-width: 90px; /* ensures button isn't too narrow */
             padding: 14px 24px;
-            white-space: nowrap;
+            white-space: nowrap; /* prevents text from wrapping */
         }
 
+        /* ========================================
+           responsive design - mobile
+           ======================================== */
+        
+        /* adjustments for tablets and phones */
         @media (max-width: 768px) {
+            /* stacks time controls vertically on mobile */
             .time-controls {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: stretch; /* stretches items full width */
             }
 
+            /* makes slider take full width on mobile */
             .slider-container {
                 width: 100%;
             }
 
+            /* single column layout for instruction steps on mobile */
             .instruction-steps {
                 grid-template-columns: 1fr;
             }
 
+            /* single column for stock cards on mobile */
             .stocks-grid {
                 grid-template-columns: 1fr;
             }
@@ -368,8 +431,13 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- ========================================
+         navigation bar
+         ======================================== -->
+    
+    <!-- top navigation bar that stays on all pages -->
     <nav class="nav">
+        <!-- left section: logo and navigation links -->
         <div class="nav-left">
             <a href="index.html" class="nav-logo">Money</a>
             <div class="nav-links">
@@ -378,8 +446,11 @@
                 <a href="simulator.html" class="nav-link">Simulator</a>
             </div>
         </div>
+        
+        <!-- right section: user info and logout button -->
         <div class="nav-right">
             <div class="user-info">
+                <!-- user avatar displays initials or 'g' for guest -->
                 <div class="user-avatar" id="userAvatar">U</div>
                 <span class="user-name" id="userName">User</span>
             </div>
@@ -387,46 +458,72 @@
         </div>
     </nav>
 
-    <!-- Header -->
+    <!-- ========================================
+         page header
+         ======================================== -->
+    
+    <!-- page header with title and subtitle -->
     <header class="header">
         <h1>Stock Market Simulator</h1>
         <p>Practice investing with virtual money in a risk-free environment</p>
     </header>
 
-    <!-- Main Content -->
+    <!-- ========================================
+         main content area
+         ======================================== -->
+    
+    <!-- main content wrapper -->
     <div class="container">
-        <!-- Instructions Section -->
+        
+        <!-- ========================================
+             instructions section
+             ======================================== -->
+        
+        <!-- how-to guide with 6 numbered steps -->
         <div class="instructions-section">
             <h2 class="section-title">🎓 How to Use the Simulator</h2>
             <p style="color: var(--navy-blue); font-size: 16px; margin-bottom: 20px;">
                 Follow these simple steps to start your investing journey. Learn by doing in a safe environment!
             </p>
+            
+            <!-- grid of instruction cards -->
             <div class="instruction-steps">
+                <!-- step 1: check portfolio -->
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h3 class="step-title">Check Your Portfolio</h3>
                     <p class="step-description">You start with $10,000 in virtual money. Monitor your balance in the dashboard below.</p>
                 </div>
+                
+                <!-- step 2: browse stocks -->
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <h3 class="step-title">Browse Stocks</h3>
                     <p class="step-description">Explore the company directory and available stocks. Each shows current price and daily change.</p>
                 </div>
+                
+                <!-- step 3: buy shares -->
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <h3 class="step-title">Buy Shares</h3>
                     <p class="step-description">Enter the number of shares and click "Buy". Make sure you have enough cash!</p>
                 </div>
+                
+                <!-- step 4: project growth -->
                 <div class="step-card">
                     <div class="step-number">4</div>
                     <h3 class="step-title">Project Growth</h3>
                     <p class="step-description">Use the projection tool to see potential future value based on average market returns.</p>
                 </div>
+                
+                <!-- step 5: monitor holdings -->
                 <div class="step-card">
                     <div class="step-number">5</div>
                     <h3 class="step-title">Monitor Holdings</h3>
                     <p class="step-description">Track your investments and watch your gains or losses in real-time.</p>
                 </div>
+                
+                <!-- step 6: sell when ready -->
                 <div class="step-card">
                     <div class="step-number">6</div>
                     <h3 class="step-title">Sell When Ready</h3>
@@ -435,77 +532,114 @@
             </div>
         </div>
 
-        <!-- Portfolio Dashboard -->
+        <!-- ========================================
+             portfolio dashboard
+             ======================================== -->
+        
+        <!-- displays key metrics at a glance (value, cash, invested, gain/loss) -->
         <div class="simulator-dashboard">
+            <!-- total portfolio value card -->
             <div class="dashboard-card">
                 <p class="dashboard-label">Portfolio Value</p>
                 <p class="dashboard-value" id="portfolioValue">$10,000.00</p>
             </div>
+            
+            <!-- available cash card -->
             <div class="dashboard-card">
                 <p class="dashboard-label">Cash Available</p>
                 <p class="dashboard-value" id="cashBalance">$10,000.00</p>
             </div>
+            
+            <!-- total invested card -->
             <div class="dashboard-card">
                 <p class="dashboard-label">Total Invested</p>
                 <p class="dashboard-value" id="totalInvested">$0.00</p>
             </div>
+            
+            <!-- gain/loss card -->
             <div class="dashboard-card">
                 <p class="dashboard-label">Gain/Loss</p>
                 <p class="dashboard-value" id="totalGainLoss">$0.00</p>
             </div>
         </div>
 
-        <!-- Projection Section -->
+        <!-- ========================================
+             projection calculator
+             ======================================== -->
+        
+        <!-- tool to calculate potential future value based on time and returns -->
         <div class="projection-section">
             <h2 class="section-title">📊 Investment Projection Calculator</h2>
             <p style="color: var(--navy-blue); font-size: 16px; margin-bottom: 8px;">
                 See how your portfolio might grow over time based on historical market returns (average 8% annually).
             </p>
             
+            <!-- time period selection controls -->
             <div class="time-controls">
+                <!-- buttons to switch between days/weeks/months -->
                 <div class="time-unit-buttons">
                     <button class="time-btn active" data-unit="days">Days</button>
                     <button class="time-btn" data-unit="weeks">Weeks</button>
                     <button class="time-btn" data-unit="months">Months</button>
                 </div>
                 
+                <!-- slider to choose specific time period -->
                 <div class="slider-container">
                     <div class="slider-label">Time Period: <span id="timeValue">30</span> <span id="timeUnit">days</span></div>
                     <input type="range" min="1" max="365" value="30" class="slider" id="timeSlider">
                 </div>
             </div>
 
+            <!-- displays the calculated projection results -->
             <div class="projection-display">
                 <div style="color: var(--dark-blue); font-weight: 700; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
                     Projected Portfolio Value
                 </div>
+                <!-- shows projected value -->
                 <div class="projection-value" id="projectedValue">$10,000.00</div>
+                <!-- shows growth amount and percentage -->
                 <div class="projection-growth" id="projectedGrowth">+$0.00 (0.00%)</div>
+                <!-- disclaimer about projections -->
                 <p class="projection-note">
                     * This is an educational estimate only. Actual returns vary significantly. Past performance doesn't guarantee future results.
                 </p>
             </div>
         </div>
 
-        <!-- Company Directory -->
+        <!-- ========================================
+             company directory
+             ======================================== -->
+        
+        <!-- browsable list of all 15 available stocks -->
         <div class="company-directory">
             <h2 class="section-title">🏢 Available Companies</h2>
             <p style="color: var(--navy-blue); font-size: 16px; margin-bottom: 8px;">
                 Browse all available stocks across different sectors. Click any company to jump to its trading card.
             </p>
+            <!-- company cards will be populated by javascript -->
             <div class="company-grid" id="companyList"></div>
         </div>
 
-        <!-- Trading Section -->
+        <!-- ========================================
+             trading section
+             ======================================== -->
+        
+        <!-- cards for buying stocks -->
         <div class="portfolio-section">
             <h2 class="section-title">💼 Trade Stocks</h2>
+            <!-- stock cards will be populated by javascript -->
             <div class="stocks-grid" id="stocksGrid"></div>
         </div>
 
-        <!-- Holdings Section -->
+        <!-- ========================================
+             holdings table
+             ======================================== -->
+        
+        <!-- table showing stocks the user owns -->
         <div class="portfolio-section">
             <h2 class="section-title">📋 My Holdings</h2>
             <table class="holdings-table">
+                <!-- table headers -->
                 <thead>
                     <tr>
                         <th>Symbol</th>
@@ -518,7 +652,9 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+                <!-- table body will be populated by javascript -->
                 <tbody id="holdingsBody">
+                    <!-- default message when no holdings -->
                     <tr>
                         <td colspan="8" style="text-align: center; color: var(--navy-blue); padding: 40px;">
                             No holdings yet. Start by buying some stocks above!
@@ -529,315 +665,16 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ========================================
+         footer
+         ======================================== -->
+    
+    <!-- footer at bottom of page with copyright info -->
     <footer class="footer">
         <p>&copy; 2025 Money App. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Stock data with 15 companies
-        const stocks = [
-            { symbol: 'AAPL', name: 'Apple Inc.', price: 175.50, change: 2.3, sector: 'Technology' },
-            { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 142.30, change: 1.8, sector: 'Technology' },
-            { symbol: 'MSFT', name: 'Microsoft Corporation', price: 378.90, change: -0.5, sector: 'Technology' },
-            { symbol: 'TSLA', name: 'Tesla Inc.', price: 242.80, change: 3.2, sector: 'Automotive' },
-            { symbol: 'AMZN', name: 'Amazon.com Inc.', price: 178.25, change: 1.5, sector: 'E-commerce' },
-            { symbol: 'META', name: 'Meta Platforms Inc.', price: 485.60, change: -1.2, sector: 'Technology' },
-            { symbol: 'NVDA', name: 'NVIDIA Corporation', price: 875.25, change: 4.5, sector: 'Technology' },
-            { symbol: 'JPM', name: 'JPMorgan Chase & Co.', price: 198.45, change: 0.8, sector: 'Finance' },
-            { symbol: 'V', name: 'Visa Inc.', price: 267.80, change: 1.1, sector: 'Finance' },
-            { symbol: 'JNJ', name: 'Johnson & Johnson', price: 156.90, change: -0.3, sector: 'Healthcare' },
-            { symbol: 'WMT', name: 'Walmart Inc.', price: 172.35, change: 0.6, sector: 'Retail' },
-            { symbol: 'PG', name: 'Procter & Gamble', price: 165.20, change: 0.4, sector: 'Consumer Goods' },
-            { symbol: 'DIS', name: 'The Walt Disney Company', price: 95.80, change: -1.8, sector: 'Entertainment' },
-            { symbol: 'NFLX', name: 'Netflix Inc.', price: 525.40, change: 2.9, sector: 'Entertainment' },
-            { symbol: 'BA', name: 'Boeing Company', price: 178.90, change: -2.1, sector: 'Aerospace' }
-        ];
-
-        // Portfolio state
-        let portfolio = {
-            cash: 10000,
-            holdings: []
-        };
-
-        // Initialize
-        function init() {
-            loadUserInfo();
-            renderCompanyList();
-            renderStocks();
-            loadPortfolio();
-            updateDashboard();
-            setupTimeProjection();
-        }
-
-        // Load user info
-        function loadUserInfo() {
-            const userName = localStorage.getItem('userName') || 'Guest';
-            const isGuest = localStorage.getItem('isGuest') === 'true';
-            
-            document.getElementById('userName').textContent = userName;
-            
-            const avatar = document.getElementById('userAvatar');
-            if (isGuest) {
-                avatar.textContent = 'G';
-            } else {
-                const initials = userName.substring(0, 2).toUpperCase();
-                avatar.textContent = initials;
-            }
-        }
-
-        // Render company directory
-        function renderCompanyList() {
-            const companyList = document.getElementById('companyList');
-            companyList.innerHTML = stocks.map(stock => `
-                <div class="company-item" onclick="scrollToStock('${stock.symbol}')">
-                    <div class="company-symbol">${stock.symbol}</div>
-                    <div class="company-name">${stock.name}</div>
-                    <div class="company-sector">${stock.sector}</div>
-                </div>
-            `).join('');
-        }
-
-        // Scroll to stock card
-        function scrollToStock(symbol) {
-            const element = document.getElementById(`stock-${symbol}`);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                element.style.animation = 'none';
-                setTimeout(() => {
-                    element.style.animation = 'fadeInUp 0.6s ease-out';
-                }, 10);
-            }
-        }
-
-        // Render stocks
-        function renderStocks() {
-            const stocksGrid = document.getElementById('stocksGrid');
-            stocksGrid.innerHTML = stocks.map(stock => `
-                <div class="stock-card" id="stock-${stock.symbol}">
-                    <div class="stock-header">
-                        <div class="stock-symbol">${stock.symbol}</div>
-                        <div class="stock-price">$${stock.price.toFixed(2)}</div>
-                    </div>
-                    <div class="stock-name-small">${stock.name}</div>
-                    <div class="stock-change ${stock.change >= 0 ? 'positive' : 'negative'}">
-                        ${stock.change >= 0 ? '▲' : '▼'} ${Math.abs(stock.change).toFixed(2)}%
-                    </div>
-                    <div class="stock-actions">
-                        <input type="number" class="stock-input" id="qty-${stock.symbol}" placeholder="Shares" min="1" value="1">
-                        <button class="btn btn-success" onclick="buyStock('${stock.symbol}')">Buy</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Buy stock
-        function buyStock(symbol) {
-            const stock = stocks.find(s => s.symbol === symbol);
-            const qty = parseInt(document.getElementById(`qty-${symbol}`).value) || 0;
-            
-            if (qty <= 0) {
-                alert('Please enter a valid quantity');
-                return;
-            }
-
-            const cost = stock.price * qty;
-            
-            if (cost > portfolio.cash) {
-                alert(`Insufficient funds!\n\nYou need: $${cost.toFixed(2)}\nYou have: $${portfolio.cash.toFixed(2)}`);
-                return;
-            }
-
-            portfolio.cash -= cost;
-            
-            const holding = portfolio.holdings.find(h => h.symbol === symbol);
-            if (holding) {
-                const totalShares = holding.shares + qty;
-                const totalCost = (holding.avgCost * holding.shares) + cost;
-                holding.avgCost = totalCost / totalShares;
-                holding.shares = totalShares;
-            } else {
-                portfolio.holdings.push({
-                    symbol: symbol,
-                    name: stock.name,
-                    shares: qty,
-                    avgCost: stock.price
-                });
-            }
-
-            savePortfolio();
-            updateDashboard();
-            renderHoldings();
-            document.getElementById(`qty-${symbol}`).value = '1';
-            
-            alert(`✅ Success!\n\nBought ${qty} shares of ${symbol}\nTotal cost: $${cost.toFixed(2)}`);
-        }
-
-        // Sell stock
-        function sellStock(symbol) {
-            const holding = portfolio.holdings.find(h => h.symbol === symbol);
-            if (!holding) return;
-
-            const stock = stocks.find(s => s.symbol === symbol);
-            const revenue = stock.price * holding.shares;
-            const costBasis = holding.avgCost * holding.shares;
-            const profit = revenue - costBasis;
-            
-            portfolio.cash += revenue;
-            portfolio.holdings = portfolio.holdings.filter(h => h.symbol !== symbol);
-
-            savePortfolio();
-            updateDashboard();
-            renderHoldings();
-            
-            alert(`✅ Sold!\n\nSold ${holding.shares} shares of ${symbol}\nRevenue: $${revenue.toFixed(2)}\nProfit/Loss: ${profit >= 0 ? '+' : ''}$${profit.toFixed(2)}`);
-        }
-
-        // Render holdings
-        function renderHoldings() {
-            const holdingsBody = document.getElementById('holdingsBody');
-            
-            if (portfolio.holdings.length === 0) {
-                holdingsBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--navy-blue); padding: 40px;">No holdings yet. Start by buying some stocks above!</td></tr>';
-                return;
-            }
-
-            holdingsBody.innerHTML = portfolio.holdings.map(holding => {
-                const stock = stocks.find(s => s.symbol === holding.symbol);
-                const currentValue = stock.price * holding.shares;
-                const costBasis = holding.avgCost * holding.shares;
-                const gainLoss = currentValue - costBasis;
-                const gainLossPercent = (gainLoss / costBasis) * 100;
-
-                return `
-                    <tr>
-                        <td><span class="stock-symbol">${holding.symbol}</span></td>
-                        <td>${holding.name}</td>
-                        <td>${holding.shares}</td>
-                        <td>$${holding.avgCost.toFixed(2)}</td>
-                        <td><span class="stock-price">$${stock.price.toFixed(2)}</span></td>
-                        <td>$${currentValue.toFixed(2)}</td>
-                        <td style="color: ${gainLoss >= 0 ? 'var(--bright-green)' : 'var(--primary-blue)'}; font-weight: 800;">
-                            ${gainLoss >= 0 ? '+' : ''}$${gainLoss.toFixed(2)} (${gainLossPercent.toFixed(2)}%)
-                        </td>
-                        <td>
-                            <button class="btn btn-danger" onclick="sellStock('${holding.symbol}')">Sell All</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // Update dashboard
-        function updateDashboard() {
-            const holdingsValue = portfolio.holdings.reduce((sum, holding) => {
-                const stock = stocks.find(s => s.symbol === holding.symbol);
-                return sum + (stock.price * holding.shares);
-            }, 0);
-
-            const totalValue = portfolio.cash + holdingsValue;
-            const totalInvested = portfolio.holdings.reduce((sum, holding) => {
-                return sum + (holding.avgCost * holding.shares);
-            }, 0);
-            const gainLoss = holdingsValue - totalInvested;
-
-            document.getElementById('portfolioValue').textContent = `$${totalValue.toFixed(2)}`;
-            document.getElementById('cashBalance').textContent = `$${portfolio.cash.toFixed(2)}`;
-            document.getElementById('totalInvested').textContent = `$${totalInvested.toFixed(2)}`;
-            
-            const gainLossElement = document.getElementById('totalGainLoss');
-            gainLossElement.textContent = `${gainLoss >= 0 ? '+' : ''}$${gainLoss.toFixed(2)}`;
-            gainLossElement.className = gainLoss >= 0 ? 'dashboard-value positive' : 'dashboard-value negative';
-
-            updateProjection();
-        }
-
-        // Time projection setup
-        function setupTimeProjection() {
-            const slider = document.getElementById('timeSlider');
-            const timeValue = document.getElementById('timeValue');
-            const timeButtons = document.querySelectorAll('.time-btn');
-
-            let currentUnit = 'days';
-            let maxValues = { days: 365, weeks: 52, months: 24 };
-
-            timeButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    timeButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentUnit = this.dataset.unit;
-                    slider.max = maxValues[currentUnit];
-                    slider.value = currentUnit === 'days' ? 30 : currentUnit === 'weeks' ? 4 : 3;
-                    document.getElementById('timeUnit').textContent = currentUnit;
-                    updateSliderValue();
-                });
-            });
-
-            slider.addEventListener('input', updateSliderValue);
-
-            function updateSliderValue() {
-                timeValue.textContent = slider.value;
-                updateProjection();
-            }
-        }
-
-        // Update projection
-        function updateProjection() {
-            const slider = document.getElementById('timeSlider');
-            const currentUnit = document.querySelector('.time-btn.active').dataset.unit;
-            const timeValue = parseInt(slider.value);
-
-            const holdingsValue = portfolio.holdings.reduce((sum, holding) => {
-                const stock = stocks.find(s => s.symbol === holding.symbol);
-                return sum + (stock.price * holding.shares);
-            }, 0);
-
-            const totalValue = portfolio.cash + holdingsValue;
-
-            // Convert time to days
-            let days;
-            if (currentUnit === 'days') days = timeValue;
-            else if (currentUnit === 'weeks') days = timeValue * 7;
-            else days = timeValue * 30;
-
-            // Calculate projection (8% annual return)
-            const annualReturn = 0.08;
-            const dailyReturn = Math.pow(1 + annualReturn, 1/365) - 1;
-            const projectedValue = totalValue * Math.pow(1 + dailyReturn, days);
-            const growth = projectedValue - totalValue;
-            const growthPercent = totalValue > 0 ? (growth / totalValue) * 100 : 0;
-
-            document.getElementById('projectedValue').textContent = `$${projectedValue.toFixed(2)}`;
-            
-            const growthElement = document.getElementById('projectedGrowth');
-            growthElement.textContent = `${growth >= 0 ? '+' : ''}$${growth.toFixed(2)} (${growthPercent.toFixed(2)}%)`;
-            growthElement.className = growth >= 0 ? 'projection-growth' : 'projection-growth negative';
-        }
-
-        // Save/Load portfolio
-        function savePortfolio() {
-            localStorage.setItem('portfolio', JSON.stringify(portfolio));
-        }
-
-        function loadPortfolio() {
-            const saved = localStorage.getItem('portfolio');
-            if (saved) {
-                portfolio = JSON.parse(saved);
-                renderHoldings();
-            }
-        }
-
-        // Logout handler
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('isGuest');
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', init);
-    </script>
+    <!-- linking external javascript file that contains all the page functionality -->
+    <script src="simulator.js"></script>
 </body>
 </html>

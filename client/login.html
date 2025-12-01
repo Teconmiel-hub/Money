@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Money</title>
+    <!-- linking the external stylesheet that contains all the visual styling for this page -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- main container that wraps the entire authentication interface -->
     <div class="auth-container">
-        <!-- information side -->
+        
+        <!-- left side panel that displays promotional information about the app -->
         <div class="auth-info">
+            
+            <!-- commented out logo image - probably they're planning to add it later or it's causing issues -->
             <!--<img src="logo-coin.png" alt="Money App Logo" class="auth-info-logo">-->
+            
+            <!-- main heading that welcomes users to the platform -->
             <h2>Welcome to Money</h2>
+            
+            <!-- paragraph explaining what the app does in general terms -->
             <p>Your comprehensive financial education platform designed to help you master finance concepts, receive personalized guidance, and practice investing risk-free.</p>
             
+            <!-- unordered list containing bullet points of key features the app offers -->
             <ul class="auth-features">
+                <!-- each list item describes a specific feature users can access -->
                 <li>Learn essential financial concepts with clear, accessible explanations</li>
                 <li>Get personalized financial advice tailored to your goals</li>
                 <li>Practice trading stocks in a risk-free simulator environment</li>
@@ -23,13 +34,20 @@
             </ul>
         </div>
         
-        <!-- form side -->
+        <!-- right side panel containing the actual login form where users input their credentials -->
         <div class="auth-form">
+            
+            <!-- page title specifically for the login section -->
             <h1 class="auth-title">Welcome Back</h1>
             
+            <!-- the form element that wraps all input fields and buttons, has an id so javascript can target it -->
             <form id="loginForm">
+                
+                <!-- container for the email input field and its label -->
                 <div class="form-group">
+                    <!-- label that describes what the input field is for, connected to the input via the 'for' attribute -->
                     <label class="form-label" for="email">Email Address</label>
+                    <!-- email input field where users type their email, marked as required so the form won't submit if it's empty -->
                     <input 
                         type="email" 
                         id="email" 
@@ -40,8 +58,11 @@
                     >
                 </div>
                 
+                <!-- container for the password input field and its label -->
                 <div class="form-group">
+                    <!-- label for the password field -->
                     <label class="form-label" for="password">Password</label>
+                    <!-- password input that hides the characters as you type, requires at least 6 characters -->
                     <input 
                         type="password" 
                         id="password" 
@@ -53,23 +74,28 @@
                     >
                 </div>
                 
-                <!-- error message display -->
+                <!-- div that will display error messages if login fails, starts hidden and javascript will show it when needed -->
                 <div id="errorMessage" class="alert alert-error hidden"></div>
                 
+                <!-- submit button that triggers the form submission when clicked -->
                 <button type="submit" class="btn btn-primary btn-full btn-submit">
                     Sign In
                 </button>
                 
+                <!-- secondary button that lets users access the app without logging in, doesn't submit the form -->
                 <button type="button" id="guestBtn" class="btn btn-secondary btn-full">
                     Continue as Guest
                 </button>
             </form>
             
+            <!-- link that redirects users to the registration page if they don't have an account yet -->
             <a href="register.html" class="auth-link">Don't have an account? Register here</a>
         </div>
     </div>
 
+    <!-- loading the javascript file that handles the login logic and form interactions -->
     <script src="login.js"></script>
+    <!-- another commented out script tag, maybe they changed the file location or consolidated scripts -->
     <!--<script src="js/login.js"></script>-->
 </body>
 </html>

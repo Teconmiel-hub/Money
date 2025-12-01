@@ -4,63 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Guidance - Money App</title>
+    <!-- linking the main stylesheet that has all the base styles for the app -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Existing styles */
+        /* ========================================
+           introduction section styles
+           ======================================== */
+        
+        /* main introduction container with centered content and soft border */
         .guidance-intro {
             background: white;
             padding: 40px;
-            border-radius: var(--radius-lg);
-            border: 2px solid rgba(74, 123, 184, 0.15);
-            box-shadow: var(--shadow-soft);
+            border-radius: var(--radius-lg); /* uses css variable for consistent rounded corners */
+            border: 2px solid rgba(74, 123, 184, 0.15); /* semi-transparent border for subtle effect */
+            box-shadow: var(--shadow-soft); /* soft shadow for depth */
             margin-bottom: 40px;
             text-align: center;
         }
 
+        /* primary heading style for introduction */
         .guidance-intro h2 {
-            font-family: var(--font-display);
+            font-family: var(--font-display); /* display font for headings */
             font-size: 32px;
-            font-weight: 900;
+            font-weight: 900; /* extra bold weight for emphasis */
             color: var(--dark-blue);
             margin-bottom: 16px;
         }
 
+        /* paragraph text within the introduction section */
         .guidance-intro p {
             color: var(--navy-blue);
             font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.7; /* increased line height for better readability */
             margin-bottom: 16px;
         }
 
+        /* ========================================
+           guidance options grid
+           ======================================== */
+        
+        /* responsive grid layout for option cards */
         .guidance-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* responsive columns that adjust automatically */
+            gap: 24px; /* space between grid items */
             margin-bottom: 40px;
         }
 
+        /* individual option card styling with hover effects */
         .option-card {
             background: white;
             padding: 36px;
             border-radius: var(--radius-lg);
             border: 2px solid rgba(74, 123, 184, 0.15);
             box-shadow: var(--shadow-soft);
-            cursor: pointer;
-            transition: all var(--transition-smooth);
+            cursor: pointer; /* shows card is clickable */
+            transition: all var(--transition-smooth); /* smooth animation for hover effects */
             text-align: center;
         }
 
+        /* hover state for option cards - lifts card up and enhances shadow */
         .option-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-medium);
-            border-color: var(--primary-blue);
+            transform: translateY(-6px); /* moves card up 6 pixels */
+            box-shadow: var(--shadow-medium); /* stronger shadow on hover */
+            border-color: var(--primary-blue); /* highlights border on hover */
         }
 
+        /* large emoji icon displayed at the top of each option card */
         .option-icon {
             font-size: 48px;
             margin-bottom: 20px;
         }
 
+        /* title text for each option card */
         .option-title {
             font-family: var(--font-display);
             font-size: 24px;
@@ -69,13 +85,18 @@
             margin-bottom: 12px;
         }
 
+        /* description text explaining each option */
         .option-description {
             color: var(--navy-blue);
             font-size: 15px;
             line-height: 1.6;
         }
 
-        /* Interactive Flowchart Styles */
+        /* ========================================
+           interactive flowchart styles
+           ======================================== */
+        
+        /* main container for the flowchart interface */
         .flowchart-navigator {
             background: white;
             padding: 40px;
@@ -84,36 +105,40 @@
             box-shadow: var(--shadow-soft);
         }
 
+        /* individual step container within the flowchart */
         .flowchart-step {
-            background: var(--bright-blue);
+            background: var(--bright-blue); /* light blue background */
             padding: 32px;
             border-radius: var(--radius-md);
             margin-bottom: 24px;
-            border-left: 4px solid var(--primary-blue);
+            border-left: 4px solid var(--primary-blue); /* accent border on left side */
         }
 
+        /* badge displaying the current step number */
         .step-number {
             display: inline-block;
-            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%);
+            background: linear-gradient(135deg, #4a7bb8 0%, #6d9fd4 100%); /* gradient background */
             color: white;
             padding: 8px 20px;
-            border-radius: 50px;
+            border-radius: 50px; /* fully rounded pill shape */
             font-weight: 800;
             font-size: 14px;
             margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-transform: uppercase; /* converts text to all caps */
+            letter-spacing: 0.5px; /* slight spacing between letters for readability */
         }
 
+        /* main question text displayed in each flowchart step */
         .step-question {
             font-family: var(--font-display);
             font-size: 24px;
             font-weight: 800;
             color: var(--dark-blue);
             margin-bottom: 16px;
-            line-height: 1.4;
+            line-height: 1.4; /* balanced line height for larger text */
         }
 
+        /* explanatory text providing context for the question */
         .step-explanation {
             color: var(--navy-blue);
             font-size: 15px;
@@ -121,11 +146,13 @@
             margin-bottom: 24px;
         }
 
+        /* container for option buttons within each step */
         .step-options {
             display: grid;
-            gap: 12px;
+            gap: 12px; /* vertical space between buttons */
         }
 
+        /* styled button for each answer option */
         .step-option-btn {
             background: white;
             border: 2px solid var(--primary-blue);
@@ -135,59 +162,75 @@
             font-weight: 700;
             cursor: pointer;
             transition: all var(--transition-smooth);
-            text-align: left;
+            text-align: left; /* aligns text to the left for better readability */
             font-size: 15px;
         }
 
+        /* hover effect for option buttons - fills with color and slides right */
         .step-option-btn:hover {
             background: var(--primary-blue);
             color: white;
-            transform: translateX(8px);
+            transform: translateX(8px); /* slides button 8 pixels to the right */
         }
 
+        /* ========================================
+           progress bar component
+           ======================================== */
+        
+        /* container for the progress bar at the top of the flowchart */
         .flowchart-progress {
             background: white;
             padding: 20px 28px;
             border-radius: var(--radius-sm);
             margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; /* flexbox for horizontal layout */
+            align-items: center; /* vertically centers all items */
+            justify-content: space-between; /* spreads items across available space */
         }
 
+        /* text labels showing current step and percentage */
         .progress-text {
             font-weight: 700;
             color: var(--dark-blue);
         }
 
+        /* background track for the progress bar */
         .progress-bar-container {
-            flex: 1;
+            flex: 1; /* takes up all available space between text labels */
             height: 8px;
             background: var(--bright-blue);
             border-radius: 10px;
-            margin: 0 20px;
-            overflow: hidden;
+            margin: 0 20px; /* spacing on left and right */
+            overflow: hidden; /* clips the fill bar to container bounds */
         }
 
+        /* filled portion of the progress bar */
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #4a7bb8 0%, #10b981 100%);
-            transition: width 0.5s ease;
+            background: linear-gradient(90deg, #4a7bb8 0%, #10b981 100%); /* blue to green gradient */
+            transition: width 0.5s ease; /* smooth animation when width changes */
             border-radius: 10px;
         }
 
+        /* ========================================
+           advice result section
+           ======================================== */
+        
+        /* container for the final advice display */
         .flowchart-advice {
-            background: linear-gradient(135deg, #e3f2fd 0%, #d1fae5 100%);
+            background: linear-gradient(135deg, #e3f2fd 0%, #d1fae5 100%); /* blue to green gradient */
             padding: 40px;
             border-radius: var(--radius-lg);
-            border: 3px solid var(--bright-green);
+            border: 3px solid var(--bright-green); /* thicker border for emphasis */
         }
 
+        /* header section of the advice display */
         .advice-header {
             text-align: center;
             margin-bottom: 32px;
         }
 
+        /* main title for the advice section */
         .advice-header h2 {
             font-family: var(--font-display);
             font-size: 36px;
@@ -196,6 +239,7 @@
             margin-bottom: 12px;
         }
 
+        /* individual advice section card */
         .advice-section {
             background: white;
             padding: 28px;
@@ -203,6 +247,7 @@
             margin-bottom: 20px;
         }
 
+        /* subheading within an advice section */
         .advice-section h3 {
             color: var(--dark-blue);
             font-weight: 800;
@@ -210,20 +255,23 @@
             font-size: 20px;
         }
 
+        /* removes default list styling */
         .advice-section ul {
             list-style: none;
             padding: 0;
         }
 
+        /* individual list item with custom checkmark */
         .advice-section li {
-            padding: 10px 0 10px 32px;
-            position: relative;
+            padding: 10px 0 10px 32px; /* left padding creates space for checkmark */
+            position: relative; /* allows absolute positioning of pseudo-element */
             color: var(--navy-blue);
             line-height: 1.7;
         }
 
+        /* custom checkmark icon before each list item */
         .advice-section li::before {
-            content: '✓';
+            content: '✓'; /* unicode checkmark character */
             position: absolute;
             left: 0;
             color: var(--bright-green);
@@ -231,35 +279,52 @@
             font-size: 18px;
         }
 
+        /* ========================================
+           informational callout box
+           ======================================== */
+        
+        /* highlighted box for important information or next steps */
         .info-callout {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: #fff3cd; /* light yellow background */
+            border-left: 4px solid #ffc107; /* yellow accent border */
             padding: 20px;
             border-radius: var(--radius-sm);
             margin: 20px 0;
         }
 
+        /* bold text within the callout box */
         .info-callout strong {
             color: var(--dark-blue);
-            display: block;
+            display: block; /* forces text onto its own line */
             margin-bottom: 8px;
         }
 
+        /* button to return to main options menu */
         .back-to-options {
             text-align: center;
             margin-top: 32px;
         }
 
+        /* ========================================
+           responsive design - mobile
+           ======================================== */
+        
+        /* adjusts layout for screens smaller than 768px (tablets and phones) */
         @media (max-width: 768px) {
             .guidance-options {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* single column layout on mobile */
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- ========================================
+         navigation bar
+         ======================================== -->
+    
+    <!-- top navigation bar that stays on all pages -->
     <nav class="nav">
+        <!-- left section: logo and navigation links -->
         <div class="nav-left">
             <a href="index.html" class="nav-logo">Money</a>
             <div class="nav-links">
@@ -268,8 +333,11 @@
                 <a href="simulator.html" class="nav-link">Simulator</a>
             </div>
         </div>
+        
+        <!-- right section: user info and logout button -->
         <div class="nav-right">
             <div class="user-info">
+                <!-- user avatar displays initials or 'g' for guest -->
                 <div class="user-avatar" id="userAvatar">U</div>
                 <span class="user-name" id="userName">User</span>
             </div>
@@ -277,23 +345,32 @@
         </div>
     </nav>
 
-    <!-- Header -->
+    <!-- ========================================
+         page header
+         ======================================== -->
+    
+    <!-- page header with title and subtitle -->
     <header class="header">
         <h1>Financial Guidance</h1>
         <p>Get personalized financial advice based on your goals and situation</p>
     </header>
 
-    <!-- Content -->
+    <!-- ========================================
+         main content area
+         ======================================== -->
+    
+    <!-- main content wrapper -->
     <div class="container">
-        <!-- Introduction -->
+        <!-- introduction section - visible by default -->
         <div class="guidance-intro" id="introSection">
             <h2>Your Financial Journey Starts Here</h2>
             <p>Whether you're just starting out or looking to optimize your finances, we're here to help guide you through every step of your financial journey.</p>
             <p>Choose how you'd like to get started:</p>
         </div>
         
-        <!-- Guidance Options -->
+        <!-- guidance options grid - two cards for different approaches -->
         <div class="guidance-options" id="optionsSection">
+            <!-- option 1: interactive flowchart -->
             <div class="option-card" onclick="startFlowchart()">
                 <div class="option-icon">🗺️</div>
                 <h3 class="option-title">Interactive Flowchart</h3>
@@ -302,6 +379,7 @@
                 </p>
             </div>
             
+            <!-- option 2: quick questionnaire -->
             <div class="option-card" onclick="startQuestionnaire()">
                 <div class="option-icon">📝</div>
                 <h3 class="option-title">Quick Questionnaire</h3>
@@ -311,20 +389,28 @@
             </div>
         </div>
 
-        <!-- Interactive Flowchart Section -->
+        <!-- ========================================
+             interactive flowchart section
+             ======================================== -->
+        
+        <!-- hidden by default, shown when user clicks flowchart option -->
         <div id="flowchartSection" style="display: none;">
+            <!-- progress indicator showing current step -->
             <div class="flowchart-progress">
                 <span class="progress-text">Step <span id="currentStep">1</span> of 7</span>
                 <div class="progress-bar-container">
+                    <!-- filled portion starts at 14% (step 1 of 7) -->
                     <div class="progress-bar-fill" id="progressBar" style="width: 14%;"></div>
                 </div>
                 <span class="progress-text"><span id="progressPercent">14</span>%</span>
             </div>
 
+            <!-- main flowchart content area - populated by javascript -->
             <div class="flowchart-navigator" id="flowchartContent">
-                <!-- Flowchart steps will be inserted here -->
+                <!-- flowchart steps will be inserted here dynamically -->
             </div>
 
+            <!-- button to return to main menu -->
             <div class="back-to-options">
                 <button class="btn btn-secondary" onclick="backToOptions()">
                     ← Back to Options
@@ -332,26 +418,35 @@
             </div>
         </div>
 
-        <!-- Questionnaire Section (Your existing questionnaire) -->
+        <!-- ========================================
+             questionnaire section
+             ======================================== -->
+        
+        <!-- hidden by default, shown when user clicks questionnaire option -->
         <div id="questionnaireSection" class="questionnaire-container" style="display: none;">
+            <!-- question card displaying one question at a time -->
             <div class="question-card" id="questionCard">
                 <p class="question-number" id="questionNumber">Question 1 of 5</p>
                 <h3 class="question-text" id="questionText"></h3>
                 
+                <!-- container for answer options - populated by javascript -->
                 <div class="options-group" id="optionsGroup"></div>
             </div>
             
+            <!-- navigation buttons for moving between questions -->
             <div class="flex" style="justify-content: space-between; margin-top: 24px;">
                 <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn">Previous</button>
                 <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next Question</button>
             </div>
 
+            <!-- results section - hidden until questionnaire is complete -->
             <div class="advice-result hidden" id="resultsSection">
                 <h2 class="advice-title">Your Personalized Financial Guidance</h2>
                 <div class="advice-content" id="adviceContent"></div>
                 <button class="btn btn-primary mt-3" onclick="restartQuestionnaire()">Start Over</button>
             </div>
 
+            <!-- button to return to main menu -->
             <div class="back-to-options" style="margin-top: 32px;">
                 <button class="btn btn-secondary" onclick="backToOptions()">
                     ← Back to Options
@@ -360,583 +455,16 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ========================================
+         footer
+         ======================================== -->
+    
+    <!-- footer at bottom of page with copyright info -->
     <footer class="footer">
         <p>&copy; 2025 Money App. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Load user info
-        function loadUserInfo() {
-            const userName = localStorage.getItem('userName') || 'Guest';
-            const isGuest = localStorage.getItem('isGuest') === 'true';
-            
-            document.getElementById('userName').textContent = userName;
-            
-            const avatar = document.getElementById('userAvatar');
-            if (isGuest) {
-                avatar.textContent = 'G';
-            } else {
-                const initials = userName.substring(0, 2).toUpperCase();
-                avatar.textContent = initials;
-            }
-        }
-
-        // Flowchart data based on Irish Personal Finance flowchart
-        const flowchartSteps = [
-            {
-                step: 1,
-                question: "Step 1: Do you have a budget?",
-                explanation: "A budget helps you track income and expenses, ensuring you're spending less than you earn.",
-                options: [
-                    { text: "Yes, I have a budget", next: 2 },
-                    { text: "No, I don't have a budget", advice: "createBudget" }
-                ]
-            },
-            {
-                step: 2,
-                question: "Step 2: Do you have high-interest debt?",
-                explanation: "High-interest debt (credit cards, payday loans) should be prioritized as it grows quickly.",
-                options: [
-                    { text: "Yes, I have high-interest debt", advice: "payOffDebt" },
-                    { text: "No high-interest debt", next: 3 }
-                ]
-            },
-            {
-                step: 3,
-                question: "Step 3: Do you have an emergency fund?",
-                explanation: "An emergency fund (3-6 months of expenses) protects you from unexpected costs.",
-                options: [
-                    { text: "Yes, I have 3-6 months saved", next: 4 },
-                    { text: "No, or less than 3 months", advice: "buildEmergencyFund" }
-                ]
-            },
-            {
-                step: 4,
-                question: "Step 4: Are you contributing to retirement?",
-                explanation: "Taking advantage of employer matching and tax-advantaged accounts is crucial for long-term wealth.",
-                options: [
-                    { text: "Yes, I'm contributing to retirement", next: 5 },
-                    { text: "No retirement contributions yet", advice: "startRetirement" }
-                ]
-            },
-            {
-                step: 5,
-                question: "Step 5: Do you have any moderate-interest debt?",
-                explanation: "Debt with 4-7% interest (student loans, car loans) should be evaluated against investment returns.",
-                options: [
-                    { text: "Yes, I have moderate debt", advice: "moderateDebt" },
-                    { text: "No moderate debt", next: 6 }
-                ]
-            },
-            {
-                step: 6,
-                question: "Step 6: Are you maximizing tax-advantaged accounts?",
-                explanation: "401(k), IRA, HSA contributions reduce taxable income and grow tax-free.",
-                options: [
-                    { text: "Yes, I'm maxing them out", next: 7 },
-                    { text: "No, I can contribute more", advice: "maxTaxAdvantaged" }
-                ]
-            },
-            {
-                step: 7,
-                question: "Step 7: Ready to invest for long-term growth?",
-                explanation: "With basics covered, you can focus on building wealth through diversified investments.",
-                options: [
-                    { text: "Yes, tell me about investing", advice: "startInvesting" },
-                    { text: "I want to review my plan", advice: "comprehensiveReview" }
-                ]
-            }
-        ];
-
-        const adviceTemplates = {
-            createBudget: {
-                title: "Priority: Create a Budget",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "A budget is the foundation of financial health",
-                            "Helps you understand where your money goes",
-                            "Ensures you spend less than you earn",
-                            "Identifies areas to cut back and save more"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Track all income sources (salary, side hustles, etc.)",
-                            "List all expenses for the past 3 months",
-                            "Categorize expenses: needs, wants, savings",
-                            "Use the 50/30/20 rule: 50% needs, 30% wants, 20% savings",
-                            "Use budgeting apps like Mint or YNAB to automate tracking"
-                        ]
-                    }
-                ],
-                nextStep: "Once you have a budget and are spending less than you earn, move to Step 2: Tackling high-interest debt."
-            },
-            payOffDebt: {
-                title: "Priority: Eliminate High-Interest Debt",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "Credit card debt often has 15-25% interest rates",
-                            "This interest compounds quickly, making it harder to escape",
-                            "Paying this off gives you a guaranteed 'return' equal to the interest rate",
-                            "Frees up cash flow for other financial goals"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "List all debts with interest rates",
-                            "Pay minimum on all debts to avoid penalties",
-                            "Put extra money toward highest-interest debt first (avalanche method)",
-                            "Consider balance transfer to 0% APR card if you have good credit",
-                            "Avoid taking on new high-interest debt"
-                        ]
-                    }
-                ],
-                nextStep: "After eliminating high-interest debt, build your emergency fund (Step 3)."
-            },
-            buildEmergencyFund: {
-                title: "Priority: Build Emergency Fund",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "Life is unpredictable: job loss, medical bills, car repairs",
-                            "Without savings, emergencies lead to debt",
-                            "Provides peace of mind and financial stability",
-                            "Prevents you from derailing other financial goals"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Start with $1,000 as a starter emergency fund",
-                            "Then build to 3-6 months of essential expenses",
-                            "Keep it in a high-yield savings account (easy access, earns interest)",
-                            "Automate monthly transfers to this account",
-                            "Only use for true emergencies, then replenish"
-                        ]
-                    }
-                ],
-                nextStep: "With an emergency fund in place, start contributing to retirement (Step 4)."
-            },
-            startRetirement: {
-                title: "Priority: Start Retirement Contributions",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "Time is your greatest asset in investing",
-                            "Compound growth means money invested early grows exponentially",
-                            "Employer matching is free money (100% instant return)",
-                            "Tax advantages reduce your current tax bill"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Contribute at least enough to get full employer match (if offered)",
-                            "Open a 401(k) through your employer",
-                            "If no 401(k), open a Roth IRA or Traditional IRA",
-                            "Start with at least 10-15% of gross income",
-                            "Invest in low-cost index funds (target-date funds are great for beginners)"
-                        ]
-                    }
-                ],
-                nextStep: "Once you're contributing to retirement, evaluate moderate-interest debt (Step 5)."
-            },
-            moderateDebt: {
-                title: "Evaluate Moderate-Interest Debt",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "Debt at 4-7% interest is a gray area",
-                            "Stock market averages 7-10% returns historically",
-                            "It's often better to invest than pay off this debt aggressively",
-                            "Balance paying down debt with building wealth"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Continue making regular payments on these loans",
-                            "Don't rush to pay them off early",
-                            "Focus on investing extra money in retirement accounts",
-                            "If debt causes stress, split extra money 50/50 between debt and investing",
-                            "Refinance if you can get a lower rate"
-                        ]
-                    }
-                ],
-                nextStep: "Continue to Step 6: Maximizing tax-advantaged accounts."
-            },
-            maxTaxAdvantaged: {
-                title: "Maximize Tax-Advantaged Accounts",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "Contributions to 401(k) and IRA reduce taxable income",
-                            "Money grows tax-free until retirement",
-                            "HSA is triple tax-advantaged (tax-free in, growth, and out)",
-                            "Maximizes long-term wealth building"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Max out 401(k) ($23,000/year for 2024)",
-                            "Max out IRA ($7,000/year for 2024)",
-                            "If you have an HSA, contribute the max ($4,150 individual, $8,300 family)",
-                            "Consider backdoor Roth IRA if income is too high",
-                            "Invest contributions in diversified index funds"
-                        ]
-                    }
-                ],
-                nextStep: "Once tax-advantaged accounts are maxed, invest in taxable accounts (Step 7)."
-            },
-            startInvesting: {
-                title: "Build Wealth Through Investing",
-                sections: [
-                    {
-                        heading: "Why This Matters",
-                        points: [
-                            "You've covered the basics - now focus on wealth building",
-                            "Investing in stocks historically returns 7-10% annually",
-                            "Diversification protects against risk",
-                            "Time in the market beats timing the market"
-                        ]
-                    },
-                    {
-                        heading: "Action Steps",
-                        points: [
-                            "Open a taxable brokerage account (Vanguard, Fidelity, Schwab)",
-                            "Invest in low-cost index funds (S&P 500, total market)",
-                            "Consider 3-fund portfolio: US stocks, international stocks, bonds",
-                            "Set up automatic monthly investments (dollar-cost averaging)",
-                            "Don't panic during market downturns - stay the course",
-                            "Review portfolio annually, rebalance as needed"
-                        ]
-                    }
-                ],
-                nextStep: "You're on the path to financial independence! Consider exploring real estate, side businesses, or other advanced strategies."
-            },
-            comprehensiveReview: {
-                title: "Comprehensive Financial Health Check",
-                sections: [
-                    {
-                        heading: "You're Doing Great!",
-                        points: [
-                            "You have a budget and live below your means",
-                            "No high-interest debt",
-                            "Emergency fund is fully funded",
-                            "Contributing to retirement accounts",
-                            "Managing moderate debt wisely",
-                            "Maximizing tax-advantaged accounts"
-                        ]
-                    },
-                    {
-                        heading: "Areas to Consider",
-                        points: [
-                            "Increase retirement contributions if possible",
-                            "Explore taxable investing for additional growth",
-                            "Consider life insurance and estate planning",
-                            "Optimize tax strategy with a professional",
-                            "Explore real estate or alternative investments",
-                            "Plan for major life expenses (home, education, etc.)"
-                        ]
-                    }
-                ],
-                nextStep: "Keep reviewing and adjusting your plan annually. You're well on your way to financial freedom!"
-            }
-        };
-
-        let currentFlowchartStep = 0;
-        let flowchartPath = [];
-
-        // Start interactive flowchart
-        function startFlowchart() {
-            document.getElementById('introSection').style.display = 'none';
-            document.getElementById('optionsSection').style.display = 'none';
-            document.getElementById('flowchartSection').style.display = 'block';
-            
-            currentFlowchartStep = 0;
-            flowchartPath = [];
-            displayFlowchartStep(flowchartSteps[0]);
-        }
-
-        // Display flowchart step
-        function displayFlowchartStep(stepData) {
-            const content = document.getElementById('flowchartContent');
-            const stepNum = stepData.step;
-            const progress = (stepNum / 7) * 100;
-            
-            document.getElementById('currentStep').textContent = stepNum;
-            document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('progressPercent').textContent = Math.round(progress);
-            
-            content.innerHTML = `
-                <div class="flowchart-step">
-                    <div class="step-number">Step ${stepData.step}</div>
-                    <h2 class="step-question">${stepData.question}</h2>
-                    <p class="step-explanation">${stepData.explanation}</p>
-                    <div class="step-options">
-                        ${stepData.options.map((option, index) => `
-                            <button class="step-option-btn" onclick="handleFlowchartChoice(${index})">
-                                ${option.text}
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            flowchartPath.push(stepData);
-        }
-
-        // Handle flowchart choice
-        function handleFlowchartChoice(optionIndex) {
-            const currentStep = flowchartPath[flowchartPath.length - 1];
-            const choice = currentStep.options[optionIndex];
-            
-            if (choice.advice) {
-                showFlowchartAdvice(choice.advice);
-            } else if (choice.next !== undefined) {
-                const nextStep = flowchartSteps.find(s => s.step === choice.next);
-                displayFlowchartStep(nextStep);
-            }
-        }
-
-        // Show flowchart advice
-        function showFlowchartAdvice(adviceKey) {
-            const advice = adviceTemplates[adviceKey];
-            const content = document.getElementById('flowchartContent');
-            
-            let html = `
-                <div class="flowchart-advice">
-                    <div class="advice-header">
-                        <h2>${advice.title}</h2>
-                        <p style="color: var(--navy-blue); font-size: 16px;">Based on your financial situation, here's what you should focus on</p>
-                    </div>
-            `;
-            
-            advice.sections.forEach(section => {
-                html += `
-                    <div class="advice-section">
-                        <h3>${section.heading}</h3>
-                        <ul>
-                            ${section.points.map(point => `<li>${point}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            });
-            
-            html += `
-                <div class="info-callout">
-                    <strong>What's Next?</strong>
-                    ${advice.nextStep}
-                </div>
-                <div style="text-align: center; margin-top: 32px;">
-                    <button class="btn btn-primary" onclick="startFlowchart()">
-                        Start Over
-                    </button>
-                </div>
-                <div style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--navy-blue);">
-                    <p>Based on the <a href="https://www.reddit.com/r/irishpersonalfinance/" target="_blank" style="color: var(--primary-blue);">Irish Personal Finance</a> flowchart</p>
-                </div>
-            </div>
-            `;
-            
-            content.innerHTML = html;
-        }
-
-        // Questionnaire functions (your existing code)
-        const questions = [
-            {
-                text: "What is your primary financial goal?",
-                options: [
-                    { text: "Saving for retirement", value: "retirement" },
-                    { text: "Building an emergency fund", value: "emergency" },
-                    { text: "Paying off debt", value: "debt" },
-                    { text: "Investing for growth", value: "investing" }
-                ]
-            },
-            {
-                text: "How much do you currently have in savings?",
-                options: [
-                    { text: "Less than $1,000", value: "low" },
-                    { text: "$1,000 - $5,000", value: "medium" },
-                    { text: "$5,000 - $10,000", value: "high" },
-                    { text: "More than $10,000", value: "veryhigh" }
-                ]
-            },
-            {
-                text: "What is your risk tolerance for investments?",
-                options: [
-                    { text: "Conservative - I prefer stability", value: "conservative" },
-                    { text: "Moderate - Balanced approach", value: "moderate" },
-                    { text: "Aggressive - I can handle volatility", value: "aggressive" }
-                ]
-            },
-            {
-                text: "Do you have any high-interest debt?",
-                options: [
-                    { text: "Yes, significant debt (>$5,000)", value: "high" },
-                    { text: "Yes, some debt (<$5,000)", value: "some" },
-                    { text: "No debt", value: "none" }
-                ]
-            },
-            {
-                text: "What is your investment timeline?",
-                options: [
-                    { text: "Short-term (0-3 years)", value: "short" },
-                    { text: "Medium-term (3-10 years)", value: "medium" },
-                    { text: "Long-term (10+ years)", value: "long" }
-                ]
-            }
-        ];
-
-        let currentQuestion = 0;
-        let answers = {};
-        let selectedAnswer = null;
-
-        function startQuestionnaire() {
-            document.getElementById('introSection').style.display = 'none';
-            document.getElementById('optionsSection').style.display = 'none';
-            document.getElementById('questionnaireSection').style.display = 'block';
-            
-            currentQuestion = 0;
-            answers = {};
-            selectedAnswer = null;
-            
-            displayQuestion();
-        }
-
-        function displayQuestion() {
-            const question = questions[currentQuestion];
-            
-            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
-            document.getElementById('questionText').textContent = question.text;
-            
-            const optionsGroup = document.getElementById('optionsGroup');
-            optionsGroup.innerHTML = question.options.map((option, index) => `
-                <button class="option-button" onclick="selectOption(this, '${option.value}')">
-                    ${option.text}
-                </button>
-            `).join('');
-            
-            document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'inline-block';
-            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Get Advice' : 'Next Question';
-        }
-
-        function selectOption(element, value) {
-            document.querySelectorAll('.option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            selectedAnswer = value;
-        }
-
-        function nextQuestion() {
-            if (selectedAnswer === null) {
-                alert('Please select an option');
-                return;
-            }
-            
-            answers[`question${currentQuestion}`] = selectedAnswer;
-            selectedAnswer = null;
-            
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                displayQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                selectedAnswer = answers[`question${currentQuestion}`];
-                displayQuestion();
-                
-                if (selectedAnswer) {
-                    const buttons = document.querySelectorAll('.option-button');
-                    buttons.forEach(btn => {
-                        if (btn.textContent.includes(selectedAnswer)) {
-                            btn.classList.add('selected');
-                        }
-                    });
-                }
-            }
-        }
-
-        function showResults() {
-            document.getElementById('questionCard').classList.add('hidden');
-            document.querySelector('#questionnaireSection .flex').classList.add('hidden');
-            document.getElementById('resultsSection').classList.remove('hidden');
-            
-            let advice = generateAdvice(answers);
-            document.getElementById('adviceContent').innerHTML = advice;
-        }
-
-        function generateAdvice(answers) {
-            let advice = '<div style="background: white; padding: 28px; border-radius: 16px; margin-bottom: 20px;">';
-            advice += '<h3 style="color: var(--dark-blue); margin-bottom: 16px; font-size: 24px;">Your Financial Recommendations</h3>';
-            advice += '<ul style="list-style: none; padding: 0;">';
-
-            if (answers.question0 === 'emergency') {
-                advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Priority:</strong> Build an emergency fund of 3-6 months of expenses</li>';
-            } else if (answers.question0 === 'retirement') {
-                advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Priority:</strong> Maximize retirement contributions (401k, IRA)</li>';
-            }
-
-            if (answers.question3 === 'high' || answers.question3 === 'some') {
-                advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Important:</strong> Focus on paying off high-interest debt first</li>';
-            }
-
-            if (answers.question2 === 'aggressive') {
-                advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Investment Style:</strong> Consider growth-focused stock portfolios</li>';
-            } else if (answers.question2 === 'conservative') {
-                advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Investment Style:</strong> Focus on bonds and stable dividend stocks</li>';
-            }
-
-            advice += '</ul></div>';
-            return advice;
-        }
-
-        function restartQuestionnaire() {
-            document.getElementById('resultsSection').classList.add('hidden');
-            document.getElementById('questionCard').classList.remove('hidden');
-            document.querySelector('#questionnaireSection .flex').classList.remove('hidden');
-            
-            currentQuestion = 0;
-            answers = {};
-            selectedAnswer = null;
-            displayQuestion();
-        }
-
-        function backToOptions() {
-            document.getElementById('flowchartSection').style.display = 'none';
-            document.getElementById('questionnaireSection').style.display = 'none';
-            document.getElementById('introSection').style.display = 'block';
-            document.getElementById('optionsSection').style.display = 'grid';
-        }
-
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('isGuest');
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Initialize
-        window.addEventListener('DOMContentLoaded', loadUserInfo);
-    </script>
+    <!-- linking external javascript file that contains all the page functionality -->
+    <script src="guidance.js"></script>
 </body>
 </html>
