@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Money</title>
+    <!-- linking the external stylesheet that contains all the visual styling for this page -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- main container that wraps the entire authentication interface -->
+    <div class="auth-container">
+        
+        <!-- left side panel that displays info about the app -->
+        <div class="auth-info">
+            
+            <!-- main heading that welcomes users to the platform -->
+            <h2>Join Money Today</h2>
+            
+            <!-- paragraph explaining what the app does in general terms -->
+            <p>Create your free account and start your journey to financial literacy. Get access to comprehensive educational content, personalized guidance, and risk-free trading practice.</p>
+            
+            <!-- unordered list containing bullet points of key features the app offers -->
+            <ul class="auth-features">
+                <!-- each list item describes a specific feature users can access -->
+                <li>Learn essential financial concepts with clear, accessible explanations</li>
+                <li>Get personalized financial advice tailored to your goals</li>
+                <li>Practice trading stocks in a risk-free simulator environment</li>
+                <li>Track your progress and build confidence in financial decisions</li>
+                <li>Access professional-grade educational content completely free</li>
+            </ul>
+        </div>
+        
+        <!-- right side panel containing the actual registration form where users input their credentials -->
+        <div class="auth-form">
+            
+            <!-- page title specifically for the registration section -->
+            <h1 class="auth-title">Create Your Account</h1>
+            
+            <!-- the form element that wraps all input fields and buttons, has an id so javascript can target it -->
+            <form id="registerForm">
+                
+                <!-- container for the full name input field and its label -->
+                <div class="form-group">
+                    <!-- label that describes what the input field is for -->
+                    <label class="form-label" for="fullName">Full Name</label>
+                    <!-- text input field where users type their full name, marked as required -->
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        class="form-input" 
+                        placeholder="Enter your full name" 
+                        required
+                        autocomplete="name"
+                    >
+                </div>
+                
+                <!-- container for the email input field and its label -->
+                <div class="form-group">
+                    <!-- label that describes what the input field is for, connected to the input via the 'for' attribute -->
+                    <label class="form-label" for="email">Email Address</label>
+                    <!-- email input field where users type their email, marked as required so the form won't submit if it's empty -->
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="Enter your email" 
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <!-- container for the password input field and its label -->
+                <div class="form-group">
+                    <!-- label for the password field -->
+                    <label class="form-label" for="password">Password</label>
+                    <!-- password input that hides the characters as you type, requires at least 6 characters -->
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Create a password (min 6 characters)" 
+                        required
+                        autocomplete="new-password"
+                        minlength="6"
+                    >
+                </div>
+                
+                <!-- container for the confirm password input field and its label -->
+                <div class="form-group">
+                    <!-- label for the confirm password field -->
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                    <!-- password input to verify the user typed their password correctly -->
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="form-input" 
+                        placeholder="Re-enter your password" 
+                        required
+                        autocomplete="new-password"
+                        minlength="6"
+                    >
+                </div>
+                
+                <!-- div that will display error messages if registration fails, starts hidden and javascript will show it when needed -->
+                <div id="errorMessage" class="alert alert-error hidden"></div>
+                
+                <!-- div that will display success messages, starts hidden -->
+                <div id="successMessage" class="alert alert-success hidden"></div>
+                
+                <!-- submit button that triggers the form submission when clicked -->
+                <button type="submit" class="btn btn-primary btn-full btn-submit">
+                    Create Account
+                </button>
+                
+                <!-- secondary button that lets users access the app without registering, doesn't submit the form -->
+                <button type="button" id="guestBtn" class="btn btn-secondary btn-full">
+                    Continue as Guest
+                </button>
+            </form>
+            
+            <!-- link that redirects users to the login page if they already have an account -->
+            <a href="login.html" class="auth-link">Already have an account? Sign in here</a>
+        </div>
+    </div>
+
+    <!-- loading the javascript file that handles the registration logic and form interactions -->
+    <script src="register.js"></script>
+  
+</body>
+</html>
