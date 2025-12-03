@@ -1,4 +1,4 @@
-// register.js - handles user registration
+// register.js handles user registration
 
 // constants for easy maintenance
 const HOME_PAGE = 'index.html';

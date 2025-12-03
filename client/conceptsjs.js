@@ -393,6 +393,8 @@ function displayQuestion() {
     selectedAnswer = null; // resets selected answer
 }
 
+
+
 // handles when user clicks on an answer choice
 function selectAnswer(index, answer) {
     if (selectedAnswer !== null) return; // prevents clicking multiple answers
@@ -430,6 +432,8 @@ function nextQuestion() {
     displayQuestion(); // shows the next question
 }
 
+
+
 // displays the final results screen after completing all questions
 function showResults() {
     // hides navigation buttons
@@ -446,6 +450,9 @@ function showResults() {
     document.getElementById('incorrectAnswers').textContent = total - score;
     document.getElementById('percentageScore').textContent = `${percentage}%`;
 
+
+
+
     // determines encouraging message based on performance
     let message = '';
     if (percentage >= 80) {
@@ -461,6 +468,9 @@ function showResults() {
     // displays the personalized message
     document.getElementById('resultMessage').textContent = message;
 }
+
+
+
 
 // resets quiz and starts over when user clicks try again
 function restartQuiz() {

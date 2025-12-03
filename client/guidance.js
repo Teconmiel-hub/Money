@@ -7,60 +7,89 @@
  * gets the stored username and updates the navigation bar
  */
 function loadUserInfo() {
-    const userName = localStorage.getItem('userName') || 'Guest'; // gets stored name or defaults to 'guest'
-    const isGuest = localStorage.getItem('isGuest') === 'true'; // checks if user is browsing as guest
+    // first we try to get the username from storage, if nothing is there we use 'Guest' as default
+    const userName = localStorage.getItem('userName') || 'Guest';
     
-    // updates the username display in the navigation bar
+    // we check if the user chose to browse as a guest by looking at the isGuest value
+    const isGuest = localStorage.getItem('isGuest') === 'true';
+    
+    // now we find the element that shows the username and change its text to the actual username
     document.getElementById('userName').textContent = userName;
     
+    // we get the avatar element (the circle with letters inside)
     const avatar = document.getElementById('userAvatar');
+    
+    // if the user is a guest, we show just the letter 'G'
     if (isGuest) {
-        avatar.textContent = 'G'; // shows 'g' for guest users
+        avatar.textContent = 'G';
     } else {
-        // shows first two letters of username as initials
+        // if they're not a guest, we take the first two letters of their name and make them uppercase
+        // so if the name is "john", we show "JO"
         const initials = userName.substring(0, 2).toUpperCase();
         avatar.textContent = initials;
     }
 }
 
+
+
+
 // ========================================
 // flowchart data structure
-// based on irish personal finance flowchart methodology
+// based on irish personal finance flowchart methodology found on reddit
 // ========================================
 
 /**
- * array containing all flowchart steps with questions, explanations, and navigation logic
- * each step represents a key decision point in financial planning
+ * this is an array that holds all the steps in our financial flowchart
+ * each step is an object with a question, explanation, and options
+ * the options let the user choose what to do next - either go to another step or see advice
  */
 const flowchartSteps = [
     {
+        // this is step number 1
         step: 1,
+        
+        // the main question we ask the user
         question: "Step 1: Do you have a budget?",
+        
+        // we explain why this question matters
         explanation: "A budget helps you track income and expenses, ensuring you're spending less than you earn.",
+        
+        // these are the choices the user can pick
         options: [
-            { text: "Yes, I have a budget", next: 2 }, // proceeds to next step
-            { text: "No, I don't have a budget", advice: "createBudget" } // shows specific advice
+            // if they say yes, we move them to step 2 using the 'next' property
+            { text: "Yes, I have a budget", next: 2 },
+            
+            // if they say no, we show them advice using the 'advice' property
+            // 'createBudget' is a key that points to specific advice in our adviceTemplates object
+            { text: "No, I don't have a budget", advice: "createBudget" }
         ]
     },
     {
+        // step 2 asks about debt
         step: 2,
         question: "Step 2: Do you have high-interest debt?",
         explanation: "High-interest debt (credit cards, payday loans) should be prioritized as it grows quickly.",
         options: [
+            // if they have debt, show advice about paying it off
             { text: "Yes, I have high-interest debt", advice: "payOffDebt" },
+            // if no debt, move to step 3
             { text: "No high-interest debt", next: 3 }
         ]
     },
     {
+        // step 3 asks about emergency savings
         step: 3,
         question: "Step 3: Do you have an emergency fund?",
         explanation: "An emergency fund (3-6 months of expenses) protects you from unexpected costs.",
         options: [
+            // if they have enough saved, go to step 4
             { text: "Yes, I have 3-6 months saved", next: 4 },
+            // if not, show advice about building emergency fund
             { text: "No, or less than 3 months", advice: "buildEmergencyFund" }
         ]
     },
     {
+        // step 4 checks retirement savings
         step: 4,
         question: "Step 4: Are you contributing to retirement?",
         explanation: "Taking advantage of employer matching and tax-advantaged accounts is crucial for long-term wealth.",
@@ -70,6 +99,7 @@ const flowchartSteps = [
         ]
     },
     {
+        // step 5 looks at medium-level debt
         step: 5,
         question: "Step 5: Do you have any moderate-interest debt?",
         explanation: "Debt with 4-7% interest (student loans, car loans) should be evaluated against investment returns.",
@@ -79,6 +109,7 @@ const flowchartSteps = [
         ]
     },
     {
+        // step 6 asks about tax-advantaged accounts
         step: 6,
         question: "Step 6: Are you maximizing tax-advantaged accounts?",
         explanation: "401(k), IRA, HSA contributions reduce taxable income and grow tax-free.",
@@ -88,6 +119,7 @@ const flowchartSteps = [
         ]
     },
     {
+        // step 7 is about investing
         step: 7,
         question: "Step 7: Ready to invest for long-term growth?",
         explanation: "With basics covered, you can focus on building wealth through diversified investments.",
@@ -98,22 +130,32 @@ const flowchartSteps = [
     }
 ];
 
+
+
+
+
 // ========================================
 // advice templates
 // detailed financial guidance for each scenario
 // ========================================
 
 /**
- * object containing comprehensive advice templates for different financial situations
- * each template includes title, sections with action points, and next steps
+ * this object holds all the detailed advice we show to users
+ * each advice has a title, sections with bullet points, and a next step message
+ * the keys like 'createBudget' match the advice values in our flowchart options
  */
 const adviceTemplates = {
-    // advice for users without a budget
+    // advice for people who don't have a budget yet
     createBudget: {
+        // the main title shown at the top
         title: "Priority: Create a Budget",
+        
+        // sections is an array of different parts of the advice
         sections: [
             {
+                // each section has a heading
                 heading: "Why This Matters",
+                // and a list of bullet points
                 points: [
                     "A budget is the foundation of financial health",
                     "Helps you understand where your money goes",
@@ -132,10 +174,11 @@ const adviceTemplates = {
                 ]
             }
         ],
+        // this tells the user what to do after following this advice
         nextStep: "Once you have a budget and are spending less than you earn, move to Step 2: Tackling high-interest debt."
     },
     
-    // advice for users with high-interest debt
+    // advice for people with high-interest debt
     payOffDebt: {
         title: "Priority: Eliminate High-Interest Debt",
         sections: [
@@ -333,10 +376,12 @@ const adviceTemplates = {
 // flowchart state management
 // ========================================
 
-// tracks which step the user is currently on (0-indexed)
+// this variable keeps track of where we are in the flowchart
+// we start at 0 (which means the first step in the array)
 let currentFlowchartStep = 0;
 
-// array storing the path the user has taken through the flowchart
+// this array stores all the steps the user has visited
+// we add each step to this array as they progress through the flowchart
 let flowchartPath = [];
 
 // ========================================
@@ -344,46 +389,53 @@ let flowchartPath = [];
 // ========================================
 
 /**
- * initializes and displays the interactive flowchart
- * hides the main menu and shows the flowchart interface
+ * this function starts the flowchart when the user clicks the flowchart button
+ * it hides the main menu and shows the flowchart interface
  */
 function startFlowchart() {
-    // hides the introduction and options sections
+    // we hide the introduction text section
     document.getElementById('introSection').style.display = 'none';
+    
+    // we hide the two big buttons (flowchart and questionnaire options)
     document.getElementById('optionsSection').style.display = 'none';
     
-    // shows the flowchart section
+    // we show the flowchart section which was hidden before
     document.getElementById('flowchartSection').style.display = 'block';
     
-    // resets flowchart state to beginning
+    // we reset everything back to the beginning
     currentFlowchartStep = 0;
     flowchartPath = [];
     
-    // displays the first step
+    // we display the first step (step 1 about budgets)
     displayFlowchartStep(flowchartSteps[0]);
 }
 
 /**
- * renders a flowchart step with its question, explanation, and options
- * updates progress bar and builds html for the step content
- * @param {Object} stepData - the data object for the current step
+ * this function displays a single step of the flowchart on the screen
+ * it shows the question, explanation, and creates buttons for the options
+ * @param {Object} stepData - the step object we want to display
  */
 function displayFlowchartStep(stepData) {
-    // gets the container where we'll insert the step content
+    // we get the main content area where we'll put everything
     const content = document.getElementById('flowchartContent');
     
-    // extracts step number for progress calculation
+    // we get the step number (1, 2, 3, etc.)
     const stepNum = stepData.step;
     
-    // calculates progress percentage (out of 7 total steps)
+    // we calculate how far through the flowchart we are as a percentage
+    // we divide by 7 because there are 7 total steps, then multiply by 100 to get a percentage
     const progress = (stepNum / 7) * 100;
     
-    // updates progress indicators in the ui
+    // we update the text that shows "step 1 of 7"
     document.getElementById('currentStep').textContent = stepNum;
+    
+    // we update the blue progress bar width to match our progress
     document.getElementById('progressBar').style.width = progress + '%';
+    
+    // we update the percentage number (like "14%" or "28%")
     document.getElementById('progressPercent').textContent = Math.round(progress);
     
-    // builds html for the step using template literals
+    // now we build the html for this step using a template string
     content.innerHTML = `
         <div class="flowchart-step">
             <div class="step-number">Step ${stepData.step}</div>
@@ -399,46 +451,52 @@ function displayFlowchartStep(stepData) {
         </div>
     `;
     
-    // adds current step to the path history
+    // the map function loops through each option and creates a button for it
+    // the index tells us if it's option 0, 1, etc.
+    // when clicked, it calls handleFlowchartChoice with that index number
+    // join('') puts all the buttons together into one string
+    
+    // we add this step to our path history so we remember where we've been
     flowchartPath.push(stepData);
 }
 
 /**
- * handles user's choice in the flowchart
- * either navigates to next step or displays final advice
- * @param {number} optionIndex - index of the option the user selected
+ * this function runs when the user clicks one of the option buttons
+ * it figures out if we should show advice or go to the next step
+ * @param {number} optionIndex - which button was clicked (0 for first, 1 for second, etc.)
  */
 function handleFlowchartChoice(optionIndex) {
-    // gets the data for the current step
+    // we get the last step in our path (the one we're currently on)
     const currentStep = flowchartPath[flowchartPath.length - 1];
     
-    // gets the specific option that was selected
+    // we get the specific option that the user clicked
     const choice = currentStep.options[optionIndex];
     
-    // checks if this choice leads to advice or another step
+    // now we check what type of option it is
     if (choice.advice) {
-        // displays the appropriate advice template
+        // if it has an 'advice' property, we show the advice page
         showFlowchartAdvice(choice.advice);
     } else if (choice.next !== undefined) {
-        // finds and displays the next step
+        // if it has a 'next' property, we find that step and display it
+        // we use find to search through all steps and get the one with matching step number
         const nextStep = flowchartSteps.find(s => s.step === choice.next);
         displayFlowchartStep(nextStep);
     }
 }
 
 /**
- * displays the final advice page based on user's answers
- * builds comprehensive html with sections, points, and next steps
- * @param {string} adviceKey - key corresponding to advice template
+ * this function displays the final advice page based on what the user needs
+ * it takes an advice key and shows all the detailed information from adviceTemplates
+ * @param {string} adviceKey - the key to look up in adviceTemplates (like 'createBudget')
  */
 function showFlowchartAdvice(adviceKey) {
-    // gets the appropriate advice template
+    // we get the advice object using the key
     const advice = adviceTemplates[adviceKey];
     
-    // gets the container where we'll display the advice
+    // we get the content area where we'll display everything
     const content = document.getElementById('flowchartContent');
     
-    // starts building the advice html
+    // we start building the html string
     let html = `
         <div class="flowchart-advice">
             <div class="advice-header">
@@ -447,7 +505,8 @@ function showFlowchartAdvice(adviceKey) {
             </div>
     `;
     
-    // loops through each section and adds it to the html
+    // now we loop through each section in the advice
+    // each section has a heading and a list of points
     advice.sections.forEach(section => {
         html += `
             <div class="advice-section">
@@ -458,8 +517,10 @@ function showFlowchartAdvice(adviceKey) {
             </div>
         `;
     });
+    // the map function turns each point into a <li> tag
+    // join('') combines them all together
     
-    // adds the "what's next?" section and restart button
+    // we add the "what's next" box at the bottom
     html += `
         <div class="info-callout">
             <strong>What's Next?</strong>
@@ -476,7 +537,7 @@ function showFlowchartAdvice(adviceKey) {
     </div>
     `;
     
-    // inserts the complete html into the page
+    // finally we put all this html into the page
     content.innerHTML = html;
 }
 
@@ -485,12 +546,14 @@ function showFlowchartAdvice(adviceKey) {
 // ========================================
 
 /**
- * array of questions for the quick questionnaire
- * each question has text and multiple choice options
+ * this array holds all 5 questions for the quick questionnaire
+ * each question has text and multiple options the user can choose from
  */
 const questions = [
     {
+        // the question text
         text: "What is your primary financial goal?",
+        // the possible answers
         options: [
             { text: "Saving for retirement", value: "retirement" },
             { text: "Building an emergency fund", value: "emergency" },
@@ -533,13 +596,15 @@ const questions = [
     }
 ];
 
-// tracks which question is currently being displayed
+// this tracks which question number we're on (starts at 0 for the first question)
 let currentQuestion = 0;
 
-// object to store user's answers (key-value pairs)
+// this object stores all the user's answers
+// we'll store them like: { question0: "retirement", question1: "low", etc. }
 let answers = {};
 
-// stores the currently selected answer before moving to next question
+// this holds the answer the user selected for the current question
+// it starts as null (nothing selected)
 let selectedAnswer = null;
 
 // ========================================
@@ -547,125 +612,135 @@ let selectedAnswer = null;
 // ========================================
 
 /**
- * initializes and starts the questionnaire
- * hides menu and displays first question
+ * this function starts the questionnaire when the user clicks the questionnaire button
+ * it hides the menu and shows the first question
  */
 function startQuestionnaire() {
-    // hides introduction and options
+    // we hide the introduction section
     document.getElementById('introSection').style.display = 'none';
+    
+    // we hide the two option buttons
     document.getElementById('optionsSection').style.display = 'none';
     
-    // shows questionnaire section
+    // we show the questionnaire section
     document.getElementById('questionnaireSection').style.display = 'block';
     
-    // resets questionnaire state
+    // we reset everything to the beginning
     currentQuestion = 0;
     answers = {};
     selectedAnswer = null;
     
-    // displays the first question
+    // we show the first question
     displayQuestion();
 }
 
 /**
- * renders the current question and its options
- * updates question number, text, and answer buttons
+ * this function displays the current question and its answer options
+ * it updates the question number, text, and creates buttons for each option
  */
 function displayQuestion() {
-    // gets the current question object
+    // we get the current question object from our questions array
     const question = questions[currentQuestion];
     
-    // updates the question counter display
+    // we update the text that shows "question 1 of 5"
+    // we add 1 because currentQuestion starts at 0 but we want to show "1" to the user
     document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
     
-    // updates the question text
+    // we update the question text
     document.getElementById('questionText').textContent = question.text;
     
-    // gets the container for answer options
+    // we get the container where the option buttons will go
     const optionsGroup = document.getElementById('optionsGroup');
     
-    // generates html for all option buttons using map and join
+    // we create html for all the option buttons
     optionsGroup.innerHTML = question.options.map((option, index) => `
         <button class="option-button" onclick="selectOption(this, '${option.value}')">
             ${option.text}
         </button>
     `).join('');
+    // map creates a button for each option
+    // 'this' refers to the button element that gets clicked
+    // option.value is the answer value we want to save
     
-    // shows/hides previous button (hidden on first question)
+    // we hide the previous button if we're on the first question
     document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'inline-block';
     
-    // changes next button text to "get advice" on final question
+    // on the last question, we change the next button text to "get advice"
     document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Get Advice' : 'Next Question';
 }
 
 /**
- * handles user selecting an answer option
- * highlights selected button and stores the value
+ * this function runs when the user clicks one of the answer buttons
+ * it highlights the selected button and stores the answer value
  * @param {HTMLElement} element - the button that was clicked
- * @param {string} value - the value associated with this option
+ * @param {string} value - the answer value to store (like "retirement" or "low")
  */
 function selectOption(element, value) {
-    // removes 'selected' class from all buttons
+    // first we remove the 'selected' class from all buttons
+    // this makes sure only one button is highlighted at a time
     document.querySelectorAll('.option-button').forEach(btn => {
         btn.classList.remove('selected');
     });
     
-    // adds 'selected' class to the clicked button
+    // then we add the 'selected' class to the button that was just clicked
+    // this makes it look highlighted
     element.classList.add('selected');
     
-    // stores the selected value
+    // we save the answer value so we know what the user picked
     selectedAnswer = value;
 }
 
 /**
- * advances to the next question or shows results
- * validates that an answer is selected before proceeding
+ * this function moves to the next question or shows the results
+ * it first checks if the user selected an answer
  */
 function nextQuestion() {
-    // checks if user has selected an answer
+    // we check if the user picked an answer
     if (selectedAnswer === null) {
+        // if they didn't, we show an alert asking them to select one
         alert('Please select an option');
-        return;
+        return; // we stop here and don't continue
     }
     
-    // stores the answer in the answers object
+    // we save the answer in our answers object
+    // the key is "question" plus the number, like "question0", "question1", etc.
     answers[`question${currentQuestion}`] = selectedAnswer;
     
-    // resets selected answer for next question
+    // we reset the selected answer for the next question
     selectedAnswer = null;
     
-    // checks if there are more questions
+    // we check if there are more questions left
     if (currentQuestion < questions.length - 1) {
-        // moves to next question
+        // if yes, we move to the next question
         currentQuestion++;
         displayQuestion();
     } else {
-        // all questions answered, shows results
+        // if no more questions, we show the results page
         showResults();
     }
 }
 
 /**
- * goes back to the previous question
- * restores the previously selected answer
+ * this function goes back to the previous question
+ * it restores the answer the user selected before
  */
 function previousQuestion() {
-    // only goes back if not on first question
+    // we only go back if we're not on the first question
     if (currentQuestion > 0) {
-        // moves back one question
+        // we move back one question
         currentQuestion--;
         
-        // retrieves the previously selected answer
+        // we get the answer they selected for this question before
         selectedAnswer = answers[`question${currentQuestion}`];
         
-        // re-displays the previous question
+        // we display the previous question again
         displayQuestion();
         
-        // if there was a previous answer, highlights it
+        // if there was a previous answer, we highlight that button
         if (selectedAnswer) {
             const buttons = document.querySelectorAll('.option-button');
             buttons.forEach(btn => {
-                // checks if button text includes the selected value
+                // we check if the button's value matches the saved answer
                 if (btn.textContent.includes(selectedAnswer)) {
                     btn.classList.add('selected');
                 }
@@ -675,83 +750,89 @@ function previousQuestion() {
 }
 
 /**
- * displays the results page with personalized advice
- * hides the question interface and shows the advice content
+ * this function displays the results page after all questions are answered
+ * it hides the questions and shows the personalized advice
  */
 function showResults() {
-    // hides the question card
+    // we hide the question card that shows the questions
     document.getElementById('questionCard').classList.add('hidden');
     
-    // hides navigation buttons
+    // we hide the navigation buttons (previous and next)
     document.querySelector('#questionnaireSection .flex').classList.add('hidden');
     
-    // shows results section
+    // we show the results section that was hidden
     document.getElementById('resultsSection').classList.remove('hidden');
     
-    // generates advice based on answers
+    // we generate the personalized advice based on all the answers
     let advice = generateAdvice(answers);
     
-    // inserts the advice html into the results section
+    // we put the advice html into the results section
     document.getElementById('adviceContent').innerHTML = advice;
 }
 
 /**
- * generates personalized financial advice based on questionnaire answers
- * analyzes user responses and builds tailored recommendations
- * @param {Object} answers - object containing all user answers
- * @returns {string} html string with personalized advice
+ * this function creates personalized advice based on the user's answers
+ * it looks at what they answered and builds custom recommendations
+ * @param {Object} answers - object containing all the user's answers
+ * @returns {string} html string with the personalized advice
  */
 function generateAdvice(answers) {
-    // starts building the advice html
+    // we start building the html for the advice
     let advice = '<div style="background: white; padding: 28px; border-radius: 16px; margin-bottom: 20px;">';
     advice += '<h3 style="color: var(--dark-blue); margin-bottom: 16px; font-size: 24px;">Your Financial Recommendations</h3>';
     advice += '<ul style="list-style: none; padding: 0;">';
 
-    // checks primary goal and adds relevant advice
+    // we check what their primary goal was (question 0)
     if (answers.question0 === 'emergency') {
+        // if they want an emergency fund, we add advice about that
         advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Priority:</strong> Build an emergency fund of 3-6 months of expenses</li>';
     } else if (answers.question0 === 'retirement') {
+        // if they want to save for retirement, we add advice about that
         advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Priority:</strong> Maximize retirement contributions (401k, IRA)</li>';
     }
 
-    // checks debt status and adds advice
+    // we check their debt situation (question 3)
     if (answers.question3 === 'high' || answers.question3 === 'some') {
+        // if they have any debt, we tell them to pay it off
         advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Important:</strong> Focus on paying off high-interest debt first</li>';
     }
 
-    // checks risk tolerance and recommends investment style
+    // we check their risk tolerance (question 2)
     if (answers.question2 === 'aggressive') {
+        // if they can handle risk, we suggest growth stocks
         advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Investment Style:</strong> Consider growth-focused stock portfolios</li>';
     } else if (answers.question2 === 'conservative') {
+        // if they want safety, we suggest bonds and stable stocks
         advice += '<li style="padding: 12px 0; color: var(--navy-blue); line-height: 1.7;">• <strong>Investment Style:</strong> Focus on bonds and stable dividend stocks</li>';
     }
 
-    // closes the list and container
+    // we close the list and the container
     advice += '</ul></div>';
     
+    // we return the complete html string
     return advice;
 }
 
 /**
- * resets the questionnaire to start over
- * returns user to the first question
+ * this function restarts the questionnaire from the beginning
+ * it resets everything and shows the first question again
  */
 function restartQuestionnaire() {
-    // hides results section
+    // we hide the results section
     document.getElementById('resultsSection').classList.add('hidden');
     
-    // shows question card
+    // we show the question card again
     document.getElementById('questionCard').classList.remove('hidden');
     
-    // shows navigation buttons
+    // we show the navigation buttons again
     document.querySelector('#questionnaireSection .flex').classList.remove('hidden');
     
-    // resets all state variables
+    // we reset all the variables to their starting values
     currentQuestion = 0;
     answers = {};
     selectedAnswer = null;
     
-    // displays first question
+    // we display the first question
     displayQuestion();
 }
 
@@ -760,35 +841,37 @@ function restartQuestionnaire() {
 // ========================================
 
 /**
- * returns user to the main options menu
- * hides both flowchart and questionnaire sections
+ * this function takes the user back to the main menu
+ * it hides both the flowchart and questionnaire sections
  */
 function backToOptions() {
-    // hides flowchart section
+    // we hide the flowchart section
     document.getElementById('flowchartSection').style.display = 'none';
     
-    // hides questionnaire section
+    // we hide the questionnaire section
     document.getElementById('questionnaireSection').style.display = 'none';
     
-    // shows introduction section
+    // we show the introduction section again
     document.getElementById('introSection').style.display = 'block';
     
-    // shows options section with grid layout
+    // we show the options section with the two big buttons (using grid layout)
     document.getElementById('optionsSection').style.display = 'grid';
 }
 
 /**
- * handles user logout
- * confirms action, clears stored data, and redirects to login page
+ * this function handles when the user wants to log out
+ * it asks for confirmation, then clears their data and sends them to login page
  */
 function handleLogout() {
-    // asks for confirmation before logging out
+    // we ask the user to confirm they really want to log out
     if (confirm('Are you sure you want to logout?')) {
-        // removes user data from local storage
+        // if they confirm, we remove their username from storage
         localStorage.removeItem('userName');
+        
+        // we also remove the guest flag
         localStorage.removeItem('isGuest');
         
-        // redirects to login page
+        // we send them to the login page
         window.location.href = 'login.html';
     }
 }
@@ -798,7 +881,7 @@ function handleLogout() {
 // ========================================
 
 /**
- * runs when the page finishes loading
- * initializes user information display in the navbar
+ * this code runs automatically when the page finishes loading
+ * it loads and displays the user's information in the navigation bar
  */
 window.addEventListener('DOMContentLoaded', loadUserInfo);

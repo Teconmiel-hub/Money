@@ -59,10 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * allows user to continue without logging in
+     * guest mode when user clicks on continue as guest, future implementations would modify or limit interaction with the app
      */
+
+
     function continueAsGuest() {
         console.log('Guest button clicked!'); // debug log
-        
+        //try and catch events
         try {
             localStorage.setItem('isLoggedIn', 'false');
             localStorage.setItem('isGuest', 'true');
@@ -76,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
+
     /**
      * validates email format
      * @param {string} email - email to validate
@@ -83,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function validateEmail(email) {
         // basic email regex pattern
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;//to make sure the user enters valid credentials. these characters are not accepted
         return emailPattern.test(email);
     }
 
@@ -100,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * displays error message to user
      * @param {string} message - error message to show
      */
+    
     function showError(message) {
         errorMessage.textContent = message;
         errorMessage.classList.remove('hidden');

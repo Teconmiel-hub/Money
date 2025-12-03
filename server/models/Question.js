@@ -39,4 +39,5 @@ const questionSchema = new mongoose.Schema({
 
 // i'm exporting this as a mongoose model called 'question'
 // mongoose will automatically create or use a collection named 'questions' in my database
-// now i can import this model in other files to
+// now i can import this model in other files to create, read, update, or delete questions
+module.exports = mongoose.model('Question', questionSchema);
